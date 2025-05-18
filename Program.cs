@@ -1,13 +1,13 @@
-using StudentPortal.Data; // ✅ Make sure this is at the top
 using Microsoft.EntityFrameworkCore;
+using StudentPortal.Data; // 🔁 Update if your namespace is different
+
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddDbContext<StudentPortalDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("StudentPortal")));
-
 
 
 
