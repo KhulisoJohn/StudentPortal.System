@@ -1,7 +1,9 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-public class Author
+namespace StudentPortal.Models
+{
+    public class Author
 {
     public int Id { get; set; }
 
@@ -11,4 +13,6 @@ public class Author
 
     public ICollection<Book> Books { get; set; } = new List<Book>();
 }
+}
+
 
