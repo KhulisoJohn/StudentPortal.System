@@ -1,23 +1,33 @@
 using Microsoft.EntityFrameworkCore;
-using StudentPortal.Data; // 🔁 Update if your namespace is different
+using StudentPortal.Data; // ✅ Change if needed
+using DotNetEnv;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// 🔐 Load .env file first (MUST be before using env vars)
+Env.Load();
+
+// ✅ Build DB connection string from env
+var dbServer = Environment.GetEnvironmentVariable("DB_SERVER");
+var dbName = Environment.GetEnvironmentVariable("DB_NAME");
+var dbUser = Environment.GetEnvironmentVariable("DB_USER");
+var dbPass = Environment.GetEnvironmentVariable("DB_PASSWORD");
+
+var connectionString = $"Server={dbServer};Database={dbName};User Id={dbUser};Password={dbPass};TrustServerCertificate=True;";
+
+// 🔧 Inject the connection string into EF Core
 builder.Services.AddDbContext<StudentPortalDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseSqlServer(connectionString));
 
-
-// Add services to the container.
+// 🧩 MVC controllers
 builder.Services.AddControllersWithViews();
-
-
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// 🛡️ Error handling & HTTPS
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
@@ -28,6 +38,7 @@ app.UseRouting();
 
 app.UseAuthorization();
 
+// 🔁 Default route
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
