@@ -42,6 +42,26 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL19WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[/home/khulysojohn/Development/StudentPortal/Views/UserProfile/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVXNlclByb2ZpbGUvQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/khulysojohn/Development/StudentPortal/Views/UserProfile/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVXNlclByb2ZpbGUvRGVsZXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/khulysojohn/Development/StudentPortal/Views/UserProfile/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVXNlclByb2ZpbGUvRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/khulysojohn/Development/StudentPortal/Views/UserProfile/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVXNlclByb2ZpbGUvRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/khulysojohn/Development/StudentPortal/Views/UserProfile/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVXNlclByb2ZpbGUvSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [/home/khulysojohn/Development/StudentPortal/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
