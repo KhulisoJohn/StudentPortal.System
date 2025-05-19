@@ -167,3 +167,5 @@
 /home/khulysojohn/Development/StudentPortal/bin/Debug/net8.0/runtimes/win/lib/net6.0/System.Windows.Extensions.dll
 /home/khulysojohn/Development/StudentPortal/obj/Debug/net8.0/StudentPortal.csproj.AssemblyReference.cache
 /home/khulysojohn/Development/StudentPortal/obj/Debug/net8.0/StudentP.09900977.Up2Date
+/home/khulysojohn/Development/StudentPortal/bin/Debug/net8.0/DotNetEnv.dll
+/home/khulysojohn/Development/StudentPortal/bin/Debug/net8.0/Sprache.dll
