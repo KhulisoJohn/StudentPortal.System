@@ -38,3 +38,85 @@ StudentPortal is a CRUD-based web application built using **ASP.NET Core MVC** a
 ```bash
 git clone https://github.com/KhulisoJohn/studentportal.git
 cd studentportal
+```
+### 2. Setup Environment Variables
+Create a `.env` file in the root directory:
+
+```bash
+DB_SERVER=localhost
+DB_NAME=StudentPortalDB
+DB_USER=your_sql_user
+DB_PASSWORD=your_secure_password
+```
+### 3. Install Dependencies
+
+```bash
+dotnet restore
+```
+### 4. Apply Migrations & Update the Database
+
+```bash
+dotnet ef migrations add InitialCreate
+dotnet ef database update
+```
+### 5. Run the App
+
+```bash
+dotnet run
+```
+## 📝 Project Structure
+```
+├── Controllers/
+├── Models/
+├── Views/
+├── Data/
+│   └── StudentPortalDbContext.cs
+├── wwwroot/
+├── Program.cs
+├── .env
+├── .gitignore
+└── StudentPortal.csproj
+```
+
+## ☁️ Hosting & Deployment
+
+This project is designed to run on a Windows server. If your public IP changes often, consider:
+
+- Setting up Dynamic DNS with tools like DuckDNS or No-IP
+
+- Hosting with IIS or using Kestrel + reverse proxy (like nginx or Apache)
+
+- Use HTTPS and secure firewall rules
+
+##   🔒 Security Notes
+Secrets like DB credentials must never be committed to GitHub.
+
+The `.env` file is already ignored via `.gitignore.`
+
+## ✅ To Do
+
+ Authentication & Authorization
+- Unit Testing
+- API support (future-proof)
+- Docker containerization (optional)
+
+## 📄 License
+This project is open-source. Feel free to use, modify, or contribute.
+
+## 🤝 Contributing
+Pull requests are welcome. Open an issue first for major changes.
+
+## 📬 Contact
+Developer: Khulyso John
+Twitter: @khulysojohn
+LinkedIn: LinkedIn Profile
+
+
+
+
+
+
+
+
+
+
