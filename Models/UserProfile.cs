@@ -1,6 +1,8 @@
 using System.ComponentModel.DataAnnotations;
 
-public class UserProfile
+namespace StudentPortal.Models
+{
+    public class UserProfile
 {
     public int Id { get; set; }
 
@@ -14,3 +16,6 @@ public class UserProfile
 
     public Student? Student { get; set; } // Optional 1-to-1
 }
+}
+
+
