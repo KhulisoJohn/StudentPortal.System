@@ -1,0 +1,22 @@
+@model StudentPortal.Models.StudentCourse
+
+@{
+    ViewData["Title"] = "Assign Student to Course";
+}
+
+<h1>Assign Student to Course</h1>
+
+<form asp-action="Create">
+    <div class="form-group">
+        <label for="StudentId">Student</label>
+        <select asp-for="StudentId" asp-items="ViewBag.Students" class="form-control"></select>
+    </div>
+    <div class="form-group">
+        <label for="CourseId">Course</label>
+        <select asp-for="CourseId" asp-items="ViewBag.Courses" class="form-control"></select>
+    </div>
+    <div class="form-group mt-2">
+        <input type="submit" value="Assign" class="btn btn-primary" />
+        <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+    </div>
+</form>
