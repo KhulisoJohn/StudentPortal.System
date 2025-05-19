@@ -1,7 +1,9 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-public class Course
+namespace StudentPortal.Models
+{
+    public class Course
 {
     public int Id { get; set; }
 
@@ -12,3 +14,5 @@ public class Course
     public ICollection<StudentCourse> StudentCourses { get; set; } = new List<StudentCourse>();
     public ICollection<Book> Books { get; set; } = new List<Book>();
 }
+}
+

@@ -1,7 +1,9 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-public class Book
+namespace StudentPortal.Models
+{
+   public class Book
 {
     public int Id { get; set; }
 
@@ -16,4 +18,6 @@ public class Book
     [ForeignKey("Author")]
     public int AuthorId { get; set; }
     public Author? Author { get; set; }
+}
+ 
 }

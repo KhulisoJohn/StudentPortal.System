@@ -2,7 +2,9 @@ using System.Collections.Generic;
 using StudentPortal.Models;
 using System.ComponentModel.DataAnnotations;
 
-public class Student
+namespace StudentPortal.Models
+{
+  public class Student
 {
     public int Id { get; set; }
 
@@ -14,4 +16,6 @@ public class Student
     public UserProfile? UserProfile { get; set; }
 
     public ICollection<StudentCourse> StudentCourses { get; set; } = new List<StudentCourse>();
+}
+  
 }
