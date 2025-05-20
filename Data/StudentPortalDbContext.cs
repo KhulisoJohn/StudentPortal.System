@@ -1,3 +1,5 @@
+
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using StudentPortal.Models; // ✅ this line is essential
 

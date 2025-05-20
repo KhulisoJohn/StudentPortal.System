@@ -26,64 +26,64 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = /home/khulysojohn/Development/StudentPortal
 build_property._RazorSourceGeneratorDebug = 
 
-[/home/khulysojohn/Development/StudentPortal/Views/Author/Create.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQXV0aG9yL0NyZWF0ZS5jc2h0bWw=
+[/home/khulysojohn/Development/StudentPortal/Views/Authors/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQXV0aG9ycy9DcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/khulysojohn/Development/StudentPortal/Views/Author/Delete.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQXV0aG9yL0RlbGV0ZS5jc2h0bWw=
+[/home/khulysojohn/Development/StudentPortal/Views/Authors/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQXV0aG9ycy9EZWxldGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/khulysojohn/Development/StudentPortal/Views/Author/Details.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQXV0aG9yL0RldGFpbHMuY3NodG1s
+[/home/khulysojohn/Development/StudentPortal/Views/Authors/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQXV0aG9ycy9EZXRhaWxzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/khulysojohn/Development/StudentPortal/Views/Author/Edit.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQXV0aG9yL0VkaXQuY3NodG1s
+[/home/khulysojohn/Development/StudentPortal/Views/Authors/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQXV0aG9ycy9FZGl0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/khulysojohn/Development/StudentPortal/Views/Author/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQXV0aG9yL0luZGV4LmNzaHRtbA==
+[/home/khulysojohn/Development/StudentPortal/Views/Authors/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQXV0aG9ycy9JbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/khulysojohn/Development/StudentPortal/Views/Book/Create.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQm9vay9DcmVhdGUuY3NodG1s
+[/home/khulysojohn/Development/StudentPortal/Views/Books/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQm9va3MvQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/khulysojohn/Development/StudentPortal/Views/Book/Delete.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQm9vay9EZWxldGUuY3NodG1s
+[/home/khulysojohn/Development/StudentPortal/Views/Books/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQm9va3MvRGVsZXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/khulysojohn/Development/StudentPortal/Views/Book/Details.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQm9vay9EZXRhaWxzLmNzaHRtbA==
+[/home/khulysojohn/Development/StudentPortal/Views/Books/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQm9va3MvRGV0YWlscy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/khulysojohn/Development/StudentPortal/Views/Book/Edit.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQm9vay9FZGl0LmNzaHRtbA==
+[/home/khulysojohn/Development/StudentPortal/Views/Books/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQm9va3MvRWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/khulysojohn/Development/StudentPortal/Views/Book/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQm9vay9JbmRleC5jc2h0bWw=
+[/home/khulysojohn/Development/StudentPortal/Views/Books/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQm9va3MvSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/khulysojohn/Development/StudentPortal/Views/Course/Create.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQ291cnNlL0NyZWF0ZS5jc2h0bWw=
+[/home/khulysojohn/Development/StudentPortal/Views/Courses/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQ291cnNlcy9DcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/khulysojohn/Development/StudentPortal/Views/Course/Delete.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQ291cnNlL0RlbGV0ZS5jc2h0bWw=
+[/home/khulysojohn/Development/StudentPortal/Views/Courses/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQ291cnNlcy9EZWxldGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/khulysojohn/Development/StudentPortal/Views/Course/Details.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQ291cnNlL0RldGFpbHMuY3NodG1s
+[/home/khulysojohn/Development/StudentPortal/Views/Courses/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQ291cnNlcy9EZXRhaWxzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/khulysojohn/Development/StudentPortal/Views/Course/Edit.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQ291cnNlL0VkaXQuY3NodG1s
+[/home/khulysojohn/Development/StudentPortal/Views/Courses/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQ291cnNlcy9FZGl0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/khulysojohn/Development/StudentPortal/Views/Course/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQ291cnNlL0luZGV4LmNzaHRtbA==
+[/home/khulysojohn/Development/StudentPortal/Views/Courses/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQ291cnNlcy9JbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [/home/khulysojohn/Development/StudentPortal/Views/Home/Index.cshtml]
@@ -102,56 +102,56 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL19WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/khulysojohn/Development/StudentPortal/Views/Student/Create.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU3R1ZGVudC9DcmVhdGUuY3NodG1s
+[/home/khulysojohn/Development/StudentPortal/Views/StudentCourses/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU3R1ZGVudENvdXJzZXMvQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/khulysojohn/Development/StudentPortal/Views/Student/Delete.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU3R1ZGVudC9EZWxldGUuY3NodG1s
+[/home/khulysojohn/Development/StudentPortal/Views/StudentCourses/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU3R1ZGVudENvdXJzZXMvRGVsZXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/khulysojohn/Development/StudentPortal/Views/Student/Details.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU3R1ZGVudC9EZXRhaWxzLmNzaHRtbA==
+[/home/khulysojohn/Development/StudentPortal/Views/StudentCourses/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU3R1ZGVudENvdXJzZXMvSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/khulysojohn/Development/StudentPortal/Views/Student/Edit.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU3R1ZGVudC9FZGl0LmNzaHRtbA==
+[/home/khulysojohn/Development/StudentPortal/Views/Students/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU3R1ZGVudHMvQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/khulysojohn/Development/StudentPortal/Views/Student/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU3R1ZGVudC9JbmRleC5jc2h0bWw=
+[/home/khulysojohn/Development/StudentPortal/Views/Students/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU3R1ZGVudHMvRGVsZXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/khulysojohn/Development/StudentPortal/Views/StudentCourse/Create.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU3R1ZGVudENvdXJzZS9DcmVhdGUuY3NodG1s
+[/home/khulysojohn/Development/StudentPortal/Views/Students/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU3R1ZGVudHMvRGV0YWlscy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/khulysojohn/Development/StudentPortal/Views/StudentCourse/Delete.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU3R1ZGVudENvdXJzZS9EZWxldGUuY3NodG1s
+[/home/khulysojohn/Development/StudentPortal/Views/Students/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU3R1ZGVudHMvRWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/khulysojohn/Development/StudentPortal/Views/StudentCourse/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU3R1ZGVudENvdXJzZS9JbmRleC5jc2h0bWw=
+[/home/khulysojohn/Development/StudentPortal/Views/Students/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU3R1ZGVudHMvSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/khulysojohn/Development/StudentPortal/Views/UserProfile/Create.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVXNlclByb2ZpbGUvQ3JlYXRlLmNzaHRtbA==
+[/home/khulysojohn/Development/StudentPortal/Views/UserProfiles/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVXNlclByb2ZpbGVzL0NyZWF0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/khulysojohn/Development/StudentPortal/Views/UserProfile/Delete.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVXNlclByb2ZpbGUvRGVsZXRlLmNzaHRtbA==
+[/home/khulysojohn/Development/StudentPortal/Views/UserProfiles/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVXNlclByb2ZpbGVzL0RlbGV0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/khulysojohn/Development/StudentPortal/Views/UserProfile/Details.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVXNlclByb2ZpbGUvRGV0YWlscy5jc2h0bWw=
+[/home/khulysojohn/Development/StudentPortal/Views/UserProfiles/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVXNlclByb2ZpbGVzL0RldGFpbHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/khulysojohn/Development/StudentPortal/Views/UserProfile/Edit.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVXNlclByb2ZpbGUvRWRpdC5jc2h0bWw=
+[/home/khulysojohn/Development/StudentPortal/Views/UserProfiles/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVXNlclByb2ZpbGVzL0VkaXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/khulysojohn/Development/StudentPortal/Views/UserProfile/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVXNlclByb2ZpbGUvSW5kZXguY3NodG1s
+[/home/khulysojohn/Development/StudentPortal/Views/UserProfiles/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVXNlclByb2ZpbGVzL0luZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [/home/khulysojohn/Development/StudentPortal/Views/_ViewImports.cshtml]

@@ -1,0 +1,19 @@
+@model StudentPortal.Models.Book
+
+@{
+    ViewData["Title"] = "Delete Book";
+}
+
+<h1>Delete Book</h1>
+
+<h3>Are you sure you want to delete this book?</h3>
+<div>
+    <h4>@Model.Title</h4>
+    <p>Author: @Model.Author?.FullName</p>
+</div>
+
+<form asp-action="DeleteConfirmed" method="post">
+    <input type="hidden" asp-for="Id" />
+    <button type="submit" class="btn btn-danger">Delete</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+</form>

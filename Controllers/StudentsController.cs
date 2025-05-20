@@ -1,27 +1,38 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using StudentPortal.Data;
 using StudentPortal.Models;
-
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace StudentPortal.Controllers
 {
     public class StudentsController : Controller
     {
         private readonly StudentPortalDbContext _context;
-        public StudentsController(StudentPortalDbContext context) => _context = context;
 
-        public async Task<IActionResult> Index() => View(await _context.Students.Include(s => s.UserProfile).ToListAsync());
+        public StudentsController(StudentPortalDbContext context)
+        {
+            _context = context;
+        }
 
+        // GET: Students
+        public async Task<IActionResult> Index()
+        {
+            // Include UserProfile to avoid lazy loading issues in views
+            var students = await _context.Students
+                .Include(s => s.UserProfile)
+                .ToListAsync();
+            return View(students);
+        }
+
+        // GET: Students/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null) return NotFound();
 
             var student = await _context.Students
                 .Include(s => s.UserProfile)
-                .Include(s => s.StudentCourses)
-                .ThenInclude(sc => sc.Course)
                 .FirstOrDefaultAsync(m => m.Id == id);
 
             if (student == null) return NotFound();
@@ -29,26 +40,29 @@ namespace StudentPortal.Controllers
             return View(student);
         }
 
+        // GET: Students/Create
         public IActionResult Create()
         {
-            ViewData["UserProfileId"] = new SelectList(_context.UserProfiles, "Id", "Username");
+            ViewBag.UserProfiles = _context.UserProfiles.ToList();
             return View();
         }
 
+        // POST: Students/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("FullName,UserProfileId")] Student student)
         {
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                ViewData["UserProfileId"] = new SelectList(_context.UserProfiles, "Id", "Username", student.UserProfileId);
-                return View(student);
+                _context.Add(student);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
             }
-            _context.Add(student);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            ViewBag.UserProfiles = _context.UserProfiles.ToList();
+            return View(student);
         }
 
+        // GET: Students/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null) return NotFound();
@@ -56,36 +70,36 @@ namespace StudentPortal.Controllers
             var student = await _context.Students.FindAsync(id);
             if (student == null) return NotFound();
 
-            ViewData["UserProfileId"] = new SelectList(_context.UserProfiles, "Id", "Username", student.UserProfileId);
+            ViewBag.UserProfiles = _context.UserProfiles.ToList();
             return View(student);
         }
 
+        // POST: Students/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,FullName,UserProfileId")] Student student)
         {
             if (id != student.Id) return NotFound();
 
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                ViewData["UserProfileId"] = new SelectList(_context.UserProfiles, "Id", "Username", student.UserProfileId);
-                return View(student);
+                try
+                {
+                    _context.Update(student);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!StudentExists(student.Id)) return NotFound();
+                    else throw;
+                }
+                return RedirectToAction(nameof(Index));
             }
-
-            try
-            {
-                _context.Update(student);
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!_context.Students.Any(e => e.Id == id)) return NotFound();
-                else throw;
-            }
-
-            return RedirectToAction(nameof(Index));
+            ViewBag.UserProfiles = _context.UserProfiles.ToList();
+            return View(student);
         }
 
+        // GET: Students/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null) return NotFound();
@@ -99,6 +113,7 @@ namespace StudentPortal.Controllers
             return View(student);
         }
 
+        // POST: Students/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -110,6 +125,11 @@ namespace StudentPortal.Controllers
                 await _context.SaveChangesAsync();
             }
             return RedirectToAction(nameof(Index));
+        }
+
+        private bool StudentExists(int id)
+        {
+            return _context.Students.Any(e => e.Id == id);
         }
     }
 }
