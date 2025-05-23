@@ -17,151 +17,151 @@ build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = StudentPortal
 build_property.RootNamespace = StudentPortal
-build_property.ProjectDir = /home/khulysojohn/MyWorkspace/Development/StudentPortal/
+build_property.ProjectDir = /home/khulysojohn/Development/Projects/StudentPortal/
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 8.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = /home/khulysojohn/MyWorkspace/Development/StudentPortal
+build_property.MSBuildProjectDirectory = /home/khulysojohn/Development/Projects/StudentPortal
 build_property._RazorSourceGeneratorDebug = 
 
-[/home/khulysojohn/MyWorkspace/Development/StudentPortal/Views/Authors/Create.cshtml]
+[/home/khulysojohn/Development/Projects/StudentPortal/Views/Authors/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQXV0aG9ycy9DcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/khulysojohn/MyWorkspace/Development/StudentPortal/Views/Authors/Delete.cshtml]
+[/home/khulysojohn/Development/Projects/StudentPortal/Views/Authors/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQXV0aG9ycy9EZWxldGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/khulysojohn/MyWorkspace/Development/StudentPortal/Views/Authors/Details.cshtml]
+[/home/khulysojohn/Development/Projects/StudentPortal/Views/Authors/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQXV0aG9ycy9EZXRhaWxzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/khulysojohn/MyWorkspace/Development/StudentPortal/Views/Authors/Edit.cshtml]
+[/home/khulysojohn/Development/Projects/StudentPortal/Views/Authors/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQXV0aG9ycy9FZGl0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/khulysojohn/MyWorkspace/Development/StudentPortal/Views/Authors/Index.cshtml]
+[/home/khulysojohn/Development/Projects/StudentPortal/Views/Authors/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQXV0aG9ycy9JbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/khulysojohn/MyWorkspace/Development/StudentPortal/Views/Books/Create.cshtml]
+[/home/khulysojohn/Development/Projects/StudentPortal/Views/Books/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQm9va3MvQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/khulysojohn/MyWorkspace/Development/StudentPortal/Views/Books/Delete.cshtml]
+[/home/khulysojohn/Development/Projects/StudentPortal/Views/Books/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQm9va3MvRGVsZXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/khulysojohn/MyWorkspace/Development/StudentPortal/Views/Books/Details.cshtml]
+[/home/khulysojohn/Development/Projects/StudentPortal/Views/Books/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQm9va3MvRGV0YWlscy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/khulysojohn/MyWorkspace/Development/StudentPortal/Views/Books/Edit.cshtml]
+[/home/khulysojohn/Development/Projects/StudentPortal/Views/Books/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQm9va3MvRWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/khulysojohn/MyWorkspace/Development/StudentPortal/Views/Books/Index.cshtml]
+[/home/khulysojohn/Development/Projects/StudentPortal/Views/Books/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQm9va3MvSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/khulysojohn/MyWorkspace/Development/StudentPortal/Views/Courses/Create.cshtml]
+[/home/khulysojohn/Development/Projects/StudentPortal/Views/Courses/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQ291cnNlcy9DcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/khulysojohn/MyWorkspace/Development/StudentPortal/Views/Courses/Delete.cshtml]
+[/home/khulysojohn/Development/Projects/StudentPortal/Views/Courses/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQ291cnNlcy9EZWxldGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/khulysojohn/MyWorkspace/Development/StudentPortal/Views/Courses/Details.cshtml]
+[/home/khulysojohn/Development/Projects/StudentPortal/Views/Courses/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQ291cnNlcy9EZXRhaWxzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/khulysojohn/MyWorkspace/Development/StudentPortal/Views/Courses/Edit.cshtml]
+[/home/khulysojohn/Development/Projects/StudentPortal/Views/Courses/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQ291cnNlcy9FZGl0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/khulysojohn/MyWorkspace/Development/StudentPortal/Views/Courses/Index.cshtml]
+[/home/khulysojohn/Development/Projects/StudentPortal/Views/Courses/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQ291cnNlcy9JbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/khulysojohn/MyWorkspace/Development/StudentPortal/Views/Home/Index.cshtml]
+[/home/khulysojohn/Development/Projects/StudentPortal/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSG9tZS9JbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/khulysojohn/MyWorkspace/Development/StudentPortal/Views/Home/Privacy.cshtml]
+[/home/khulysojohn/Development/Projects/StudentPortal/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSG9tZS9Qcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/khulysojohn/MyWorkspace/Development/StudentPortal/Views/Shared/Error.cshtml]
+[/home/khulysojohn/Development/Projects/StudentPortal/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL0Vycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/khulysojohn/MyWorkspace/Development/StudentPortal/Views/Shared/_ValidationScriptsPartial.cshtml]
+[/home/khulysojohn/Development/Projects/StudentPortal/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL19WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/khulysojohn/MyWorkspace/Development/StudentPortal/Views/StudentCourses/Create.cshtml]
+[/home/khulysojohn/Development/Projects/StudentPortal/Views/StudentCourses/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU3R1ZGVudENvdXJzZXMvQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/khulysojohn/MyWorkspace/Development/StudentPortal/Views/StudentCourses/Delete.cshtml]
+[/home/khulysojohn/Development/Projects/StudentPortal/Views/StudentCourses/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU3R1ZGVudENvdXJzZXMvRGVsZXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/khulysojohn/MyWorkspace/Development/StudentPortal/Views/StudentCourses/Index.cshtml]
+[/home/khulysojohn/Development/Projects/StudentPortal/Views/StudentCourses/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU3R1ZGVudENvdXJzZXMvSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/khulysojohn/MyWorkspace/Development/StudentPortal/Views/Students/Create.cshtml]
+[/home/khulysojohn/Development/Projects/StudentPortal/Views/Students/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU3R1ZGVudHMvQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/khulysojohn/MyWorkspace/Development/StudentPortal/Views/Students/Delete.cshtml]
+[/home/khulysojohn/Development/Projects/StudentPortal/Views/Students/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU3R1ZGVudHMvRGVsZXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/khulysojohn/MyWorkspace/Development/StudentPortal/Views/Students/Details.cshtml]
+[/home/khulysojohn/Development/Projects/StudentPortal/Views/Students/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU3R1ZGVudHMvRGV0YWlscy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/khulysojohn/MyWorkspace/Development/StudentPortal/Views/Students/Edit.cshtml]
+[/home/khulysojohn/Development/Projects/StudentPortal/Views/Students/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU3R1ZGVudHMvRWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/khulysojohn/MyWorkspace/Development/StudentPortal/Views/Students/Index.cshtml]
+[/home/khulysojohn/Development/Projects/StudentPortal/Views/Students/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU3R1ZGVudHMvSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/khulysojohn/MyWorkspace/Development/StudentPortal/Views/UserProfiles/Create.cshtml]
+[/home/khulysojohn/Development/Projects/StudentPortal/Views/UserProfiles/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVXNlclByb2ZpbGVzL0NyZWF0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/khulysojohn/MyWorkspace/Development/StudentPortal/Views/UserProfiles/Delete.cshtml]
+[/home/khulysojohn/Development/Projects/StudentPortal/Views/UserProfiles/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVXNlclByb2ZpbGVzL0RlbGV0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/khulysojohn/MyWorkspace/Development/StudentPortal/Views/UserProfiles/Details.cshtml]
+[/home/khulysojohn/Development/Projects/StudentPortal/Views/UserProfiles/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVXNlclByb2ZpbGVzL0RldGFpbHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/khulysojohn/MyWorkspace/Development/StudentPortal/Views/UserProfiles/Edit.cshtml]
+[/home/khulysojohn/Development/Projects/StudentPortal/Views/UserProfiles/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVXNlclByb2ZpbGVzL0VkaXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/khulysojohn/MyWorkspace/Development/StudentPortal/Views/UserProfiles/Index.cshtml]
+[/home/khulysojohn/Development/Projects/StudentPortal/Views/UserProfiles/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVXNlclByb2ZpbGVzL0luZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/khulysojohn/MyWorkspace/Development/StudentPortal/Views/_ViewImports.cshtml]
+[/home/khulysojohn/Development/Projects/StudentPortal/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/khulysojohn/MyWorkspace/Development/StudentPortal/Views/_ViewStart.cshtml]
+[/home/khulysojohn/Development/Projects/StudentPortal/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/khulysojohn/MyWorkspace/Development/StudentPortal/Views/Shared/_Layout.cshtml]
+[/home/khulysojohn/Development/Projects/StudentPortal/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL19MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-nsabbxntjs
