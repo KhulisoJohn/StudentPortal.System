@@ -1,21 +1,27 @@
-using System.Collections.Generic;
-using StudentPortal.Models;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace StudentPortal.Models
 {
-  public class Student
-{
-    public int Id { get; set; }
+    public class Student
+    {
+        [Key]
+        public int Id { get; set; }
 
-    [Required]
-    [StringLength(100)]
-    public string? FullName { get; set; }
+        [Required]
+        public string UserId { get; set; } = string.Empty;
 
-    public int? UserProfileId { get; set; }
-    public UserProfile? UserProfile { get; set; }
+        [ForeignKey("UserId")]
+        public ApplicationUser? User { get; set; }
 
-    public ICollection<StudentCourse> StudentCourses { get; set; } = new List<StudentCourse>();
-}
-  
+        public ICollection<StudentSubject>? StudentSubjects { get; set; }
+
+        public DateTime EnrollmentDate { get; set; } = DateTime.UtcNow;
+
+        public bool IsActive { get; set; } = true;
+
+        // Optional future-proof fields:
+        // public int? TutorId { get; set; }
+        // public string? GradeLevel { get; set; }
+    }
 }

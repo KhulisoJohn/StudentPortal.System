@@ -22,6 +22,16 @@ builder.Services.AddDbContext<StudentPortalDbContext>(options =>
 // 🧩 MVC controllers
 builder.Services.AddControllersWithViews();
 
+builder.Services.AddAuthentication("CookieAuth")
+    .AddCookie("CookieAuth", options =>
+    {
+        options.LoginPath = "/Account/Login";
+        options.AccessDeniedPath = "/Account/AccessDenied";
+    });
+
+builder.Services.AddAuthorization();
+
+
 var app = builder.Build();
 
 // 🛡️ Error handling & HTTPS
@@ -35,7 +45,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-
+app.UseAuthentication();
 app.UseAuthorization();
 
 // 🔁 Default route
