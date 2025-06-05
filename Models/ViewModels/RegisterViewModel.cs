@@ -4,20 +4,22 @@ namespace StudentPortal.Models.ViewModels
 {
     public class RegisterViewModel
     {
-        [Required]
-        [EmailAddress]
-        public string? Email { get; set; }
+        [Required(ErrorMessage = "Email is required.")]
+        [EmailAddress(ErrorMessage = "Invalid email address.")]
+        public string Email { get; set; } = string.Empty;
 
-        [Required]
-        public string? FullName { get; set; }
+        [Required(ErrorMessage = "Full name is required.")]
+        [StringLength(100, ErrorMessage = "Full name must be less than 100 characters.")]
+        public string FullName { get; set; } = string.Empty;
 
-        [Required]
+        [Required(ErrorMessage = "Password is required.")]
         [DataType(DataType.Password)]
-        public string? Password { get; set; }
+        [StringLength(100, MinimumLength = 6, ErrorMessage = "Password must be at least 6 characters.")]
+        public string Password { get; set; } = string.Empty;
 
-        [Required]
+        [Required(ErrorMessage = "Confirm Password is required.")]
         [DataType(DataType.Password)]
-        [Compare("Password")]
-        public string? ConfirmPassword { get; set; }
+        [Compare("Password", ErrorMessage = "Passwords do not match.")]
+        public string ConfirmPassword { get; set; } = string.Empty;
     }
 }
