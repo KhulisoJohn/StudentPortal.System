@@ -127,6 +127,24 @@ namespace StudentPortal.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        // GET: /Account/MakeMeAdmin
+[HttpGet]
+public async Task<IActionResult> MakeMeAdmin()
+{
+    var user = await _userManager.GetUserAsync(User);
+    if (user == null)
+        return RedirectToAction("Login");
+
+    // Create Admin role if it doesn't exist
+    if (!await _roleManager.RoleExistsAsync("Admin"))
+        await _roleManager.CreateAsync(new IdentityRole("Admin"));
+
+    await _userManager.AddToRoleAsync(user, "Admin");
+
+    return Content("You are now an Admin. You can go to /Admin.");
+}
+
+
         // GET: /Account/Profile
         [HttpGet]
         public async Task<IActionResult> Profile()
