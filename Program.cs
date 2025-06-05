@@ -1,40 +1,46 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using StudentPortal.Data; // ✅ Change if needed
+using StudentPortal.Data;
+using StudentPortal.Models; // ✅ Adjust if ApplicationUser is in a different namespace
 using DotNetEnv;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// 🔐 Load .env file first (MUST be before using env vars)
+// 🔐 Load environment variables from .env
 Env.Load();
 
-// ✅ Build DB connection string from env
+// ✅ Read connection details from .env file
 var dbServer = Environment.GetEnvironmentVariable("DB_SERVER");
 var dbName = Environment.GetEnvironmentVariable("DB_NAME");
 var dbUser = Environment.GetEnvironmentVariable("DB_USER");
 var dbPass = Environment.GetEnvironmentVariable("DB_PASSWORD");
 
+// ✅ Check if values exist
+if (string.IsNullOrEmpty(dbServer) || string.IsNullOrEmpty(dbName) || string.IsNullOrEmpty(dbUser) || string.IsNullOrEmpty(dbPass))
+{
+    throw new Exception("One or more required database environment variables are missing.");
+}
+
+// ✅ Build connection string
 var connectionString = $"Server={dbServer};Database={dbName};User Id={dbUser};Password={dbPass};TrustServerCertificate=True;";
 
-// 🔧 Inject the connection string into EF Core
+// 🧠 Add services to the container
+builder.Services.AddControllersWithViews();
+
 builder.Services.AddDbContext<StudentPortalDbContext>(options =>
     options.UseSqlServer(connectionString));
 
-// 🧩 MVC controllers
-builder.Services.AddControllersWithViews();
+// 🧩 Identity with Entity Framework
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+    .AddEntityFrameworkStores<StudentPortalDbContext>()
+    .AddDefaultTokenProviders();
 
-builder.Services.AddAuthentication("CookieAuth")
-    .AddCookie("CookieAuth", options =>
-    {
-        options.LoginPath = "/Account/Login";
-        options.AccessDeniedPath = "/Account/AccessDenied";
-    });
-
+builder.Services.AddAuthentication();
 builder.Services.AddAuthorization();
-
 
 var app = builder.Build();
 
-// 🛡️ Error handling & HTTPS
+// 🌐 Configure the HTTP request pipeline
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
@@ -45,10 +51,11 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+
 app.UseAuthentication();
 app.UseAuthorization();
 
-// 🔁 Default route
+// 🏠 Default route
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");

@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using StudentPortal.Models;
-using StudentPortal.ViewModels;
+using StudentPortal.Models.ViewModels;
 using System.Threading.Tasks;
 using System.Linq;
 

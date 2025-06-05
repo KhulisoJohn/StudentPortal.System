@@ -1,5 +1,5 @@
 
-namespace StudentPortal.ViewModels
+namespace StudentPortal.Models.ViewModels
 {
     public class AdminUserViewModel
     {

@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using StudentPortal.Models;
-using StudentPortal.ViewModels;
+using StudentPortal.Models.ViewModels;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
