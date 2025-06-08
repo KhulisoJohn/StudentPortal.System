@@ -6,8 +6,9 @@ using DotNetEnv;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// 🔐 Load environment variables from .env
-Env.Load();
+
+// 🔐 Load environment variables from .env in project root
+DotNetEnv.Env.Load(Path.Combine(Directory.GetCurrentDirectory(), ".env"));
 
 // ✅ Read connection details from .env file
 var dbServer = Environment.GetEnvironmentVariable("DB_SERVER");

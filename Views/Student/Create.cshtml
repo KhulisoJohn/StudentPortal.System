@@ -1,0 +1,26 @@
+@model StudentPortal.Models.Student
+
+@{
+    ViewData["Title"] = "Register as Student";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<form asp-action="Create" method="post">
+    <div class="form-group">
+        <label asp-for="EnrollmentDate"></label>
+        <input asp-for="EnrollmentDate" class="form-control" readonly />
+        <span asp-validation-for="EnrollmentDate" class="text-danger"></span>
+    </div>
+
+    <div class="form-group form-check">
+        <input asp-for="IsActive" class="form-check-input" />
+        <label asp-for="IsActive" class="form-check-label"></label>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Register</button>
+</form>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

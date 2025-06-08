@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using StudentPortal.Models;
+using StudentPortal.Data;
 using StudentPortal.Models.ViewModels;
 using System.Threading.Tasks;
 using System.Linq;
@@ -12,22 +13,23 @@ namespace StudentPortal.Controllers
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly StudentPortalDbContext _context;
 
         public AccountController(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
-            RoleManager<IdentityRole> roleManager)
+            RoleManager<IdentityRole> roleManager,
+            StudentPortalDbContext context)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _roleManager = roleManager;
+            _context = context;
         }
 
-        // GET: /Account/Register
         [HttpGet]
         public IActionResult Register() => View();
 
-        // POST: /Account/Register
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(RegisterViewModel model)
@@ -58,21 +60,40 @@ namespace StudentPortal.Controllers
                 return View(model);
             }
 
-            // Create roles if they don't exist
-            if (!await _roleManager.RoleExistsAsync("Student"))
-                await _roleManager.CreateAsync(new IdentityRole("Student"));
+            var roles = new[] { "Student", "Tutor", "Admin" };
+            foreach (var role in roles)
+            {
+                if (!await _roleManager.RoleExistsAsync(role))
+                    await _roleManager.CreateAsync(new IdentityRole(role));
+            }
 
-            if (!await _roleManager.RoleExistsAsync("Admin"))
-                await _roleManager.CreateAsync(new IdentityRole("Admin"));
+            await _userManager.AddToRoleAsync(user, model.Role);
 
-            // Assign default role
-            await _userManager.AddToRoleAsync(user, "Student");
+            // Automatically create related entity
+            if (model.Role == "Student")
+            {
+                var student = new Student
+                {
+                    UserId = user.Id,
+                    EnrollmentDate = DateTime.UtcNow
+                };
+                _context.Students.Add(student);
+            }
+            else if (model.Role == "Tutor")
+            {
+                var tutor = new Tutor
+                {
+                    UserId = user.Id,
+                    HireDate = DateTime.UtcNow
+                };
+                _context.Tutors.Add(tutor);
+            }
 
+            await _context.SaveChangesAsync();
             await _signInManager.SignInAsync(user, isPersistent: false);
             return RedirectToAction("Index", "Home");
         }
 
-        // GET: /Account/Login
         [HttpGet]
         public IActionResult Login(string? returnUrl = null)
         {
@@ -80,7 +101,6 @@ namespace StudentPortal.Controllers
             return View();
         }
 
-        // POST: /Account/Login
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginViewModel model, string? returnUrl = null)
@@ -118,7 +138,6 @@ namespace StudentPortal.Controllers
             return View(model);
         }
 
-        // POST: /Account/Logout
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout()
@@ -127,25 +146,21 @@ namespace StudentPortal.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        // GET: /Account/MakeMeAdmin
-[HttpGet]
-public async Task<IActionResult> MakeMeAdmin()
-{
-    var user = await _userManager.GetUserAsync(User);
-    if (user == null)
-        return RedirectToAction("Login");
+        [HttpGet]
+        public async Task<IActionResult> MakeMeAdmin()
+        {
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+                return RedirectToAction("Login");
 
-    // Create Admin role if it doesn't exist
-    if (!await _roleManager.RoleExistsAsync("Admin"))
-        await _roleManager.CreateAsync(new IdentityRole("Admin"));
+            if (!await _roleManager.RoleExistsAsync("Admin"))
+                await _roleManager.CreateAsync(new IdentityRole("Admin"));
 
-    await _userManager.AddToRoleAsync(user, "Admin");
+            await _userManager.AddToRoleAsync(user, "Admin");
 
-    return Content("You are now an Admin. You can go to /Admin.");
-}
+            return Content("You are now an Admin. You can go to /Admin.");
+        }
 
-
-        // GET: /Account/Profile
         [HttpGet]
         public async Task<IActionResult> Profile()
         {

@@ -19,6 +19,9 @@ namespace StudentPortal.Models
         public ICollection<TutorSubject> TutorSubjects { get; set; } = new List<TutorSubject>();
 
         public string? Bio { get; set; }
+        
+        public DateTime HireDate { get; set; } = DateTime.UtcNow;
+
 
         public string? ContactInfo { get; set; }
 

@@ -1,0 +1,27 @@
+@model StudentPortal.Models.Student
+
+@{
+    ViewData["Title"] = "Student Profile";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<div class="card mt-4">
+    <div class="card-body">
+        <h5 class="card-title">Student ID: @Model.Id</h5>
+        <p class="card-text">
+            <strong>Enrollment Date:</strong> @Model.EnrollmentDate.ToString("yyyy-MM-dd")<br />
+            <strong>Status:</strong>
+            @if (Model.IsActive)
+            {
+                <span class="badge bg-success">Active</span>
+            }
+            else
+            {
+                <span class="badge bg-secondary">Inactive</span>
+            }
+        </p>
+
+        @* Future: Show StudentSubjects here *@
+    </div>
+</div>

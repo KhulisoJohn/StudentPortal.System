@@ -21,5 +21,9 @@ namespace StudentPortal.Models.ViewModels
         [DataType(DataType.Password)]
         [Compare("Password", ErrorMessage = "Passwords do not match.")]
         public string ConfirmPassword { get; set; } = string.Empty;
+
+        [Required(ErrorMessage = "Role selection is required.")]
+        [RegularExpression("Student|Tutor", ErrorMessage = "Invalid role selected.")]
+        public string Role { get; set; } = "Student";  // Default to Student
     }
 }
