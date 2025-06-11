@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations;
-using StudentPortal.Models;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace StudentPortal.Models
 {
@@ -10,14 +10,18 @@ namespace StudentPortal.Models
         [StringLength(100)]
         public string? FullName { get; set; }
 
-        // One-to-one relationships (nullable at first)
-        public Student? StudentProfile { get; set; }
-        public Tutor? TutorProfile { get; set; }
+        // Added to determine user role explicitly
+        [Required]
+        public string? Role { get; set; }  // "Student" or "Tutor"
 
-         public ICollection<UserChatChannel>? UserChatChannels { get; set; }
-    public ICollection<ChatMessage>? ChatMessages { get; set; }
+        // Navigation properties (1-to-1)
+        public Student? Student { get; set; }
+        public Tutor? Tutor { get; set; }
 
-        // Optional: Time of registration
+        // Chat system
+        public ICollection<UserChatChannel>? UserChatChannels { get; set; }
+        public ICollection<ChatMessage>? ChatMessages { get; set; }
+
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     }
 }

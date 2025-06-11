@@ -10,11 +10,9 @@ namespace StudentPortal.Data
 
         public DbSet<Student> Students { get; set; }
         public DbSet<Tutor> Tutors { get; set; }
-
         public DbSet<Subject> Subjects { get; set; }
         public DbSet<StudentSubject> StudentSubjects { get; set; }
         public DbSet<TutorSubject> TutorSubjects { get; set; }
-
         public DbSet<ChatChannel> ChatChannels { get; set; }
         public DbSet<UserChatChannel> UserChatChannels { get; set; }
         public DbSet<ChatMessage> ChatMessages { get; set; }
@@ -78,15 +76,14 @@ namespace StudentPortal.Data
 
             // --- One-to-One: Student <-> ApplicationUser ---
             modelBuilder.Entity<Student>()
-                .HasOne(s => s.User)
-                .WithOne(u => u.StudentProfile)
-                .HasForeignKey<Student>(s => s.UserId);
+                .HasOne(s => s.ApplicationUser)
+                .WithOne(u => u.Student)          // <--- change from StudentProfile to Student
+                .HasForeignKey<Student>(s => s.ApplicationUserId);
 
-            // --- One-to-One: Tutor <-> ApplicationUser ---
-           modelBuilder.Entity<Tutor>()
-    .HasOne(t => t.ApplicationUser)
-    .WithOne(u => u.TutorProfile)
-    .HasForeignKey<Tutor>(t => t.UserId);
+            modelBuilder.Entity<Tutor>()
+                .HasOne(t => t.ApplicationUser)
+                .WithOne(u => u.Tutor)            // <--- change from TutorProfile to Tutor
+                .HasForeignKey<Tutor>(t => t.ApplicationUserId);
 
         }
     }

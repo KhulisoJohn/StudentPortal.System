@@ -10,24 +10,21 @@ namespace StudentPortal.Models
         public int Id { get; set; }
 
         [Required]
-        public string UserId { get; set; } = string.Empty;
+        public string ApplicationUserId { get; set; } = string.Empty;
 
-        [ForeignKey("UserId")]
+        [ForeignKey("ApplicationUserId")]
         public ApplicationUser? ApplicationUser { get; set; }
 
-        // Subjects this tutor teaches (many-to-many)
+        // Subjects this tutor teaches
         public ICollection<TutorSubject> TutorSubjects { get; set; } = new List<TutorSubject>();
 
         public string? Bio { get; set; }
-        
-        public DateTime HireDate { get; set; } = DateTime.UtcNow;
-
 
         public string? ContactInfo { get; set; }
 
-        // Optional fields that may help later
-        public bool IsActive { get; set; } = true;
-
+        public DateTime HireDate { get; set; } = DateTime.UtcNow;
         public DateTime RegisteredAt { get; set; } = DateTime.UtcNow;
+
+        public bool IsActive { get; set; } = true;
     }
 }

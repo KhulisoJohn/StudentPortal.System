@@ -1,11 +1,10 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using StudentPortal.Data;
 using Microsoft.EntityFrameworkCore;
+using StudentPortal.Data;
 using StudentPortal.Models;
 using System;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace StudentPortal.Controllers
@@ -29,8 +28,12 @@ namespace StudentPortal.Controllers
             var user = await _userManager.GetUserAsync(User);
             if (user == null) return RedirectToAction("Login", "Account");
 
-            var existing = await _context.Students.FirstOrDefaultAsync(s => s.UserId == user.Id);
-            if (existing != null) return RedirectToAction(nameof(Details));
+            var existingStudent = await _context.Students
+                .AsNoTracking()
+                .FirstOrDefaultAsync(s => s.ApplicationUserId == user.Id);
+
+            if (existingStudent != null)
+                return RedirectToAction(nameof(Details));
 
             return View();
         }
@@ -43,13 +46,32 @@ namespace StudentPortal.Controllers
             var user = await _userManager.GetUserAsync(User);
             if (user == null) return RedirectToAction("Login", "Account");
 
-            if (!ModelState.IsValid) return View(model);
+            if (!ModelState.IsValid)
+                return View(model);
 
-            model.UserId = user.Id;
+            // Double-check to prevent duplicate student record for the user
+            var existingStudent = await _context.Students
+                .AsNoTracking()
+                .FirstOrDefaultAsync(s => s.ApplicationUserId == user.Id);
+
+            if (existingStudent != null)
+                return RedirectToAction(nameof(Details));
+
+            model.ApplicationUserId = user.Id;
             model.EnrollmentDate = DateTime.UtcNow;
 
             _context.Students.Add(model);
-            await _context.SaveChangesAsync();
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception)
+            {
+                // Log the exception (not shown here, add your logger)
+                ModelState.AddModelError("", "An error occurred while saving your data. Please try again.");
+                return View(model);
+            }
 
             return RedirectToAction(nameof(Details));
         }
@@ -62,11 +84,13 @@ namespace StudentPortal.Controllers
             if (user == null) return RedirectToAction("Login", "Account");
 
             var student = await _context.Students
-                .Include(s => s.User)
+                .AsNoTracking()
+                .Include(s => s.ApplicationUser)
                 .Include(s => s.StudentSubjects)
-                .FirstOrDefaultAsync(s => s.UserId == user.Id);
+                .FirstOrDefaultAsync(s => s.ApplicationUserId == user.Id);
 
-            if (student == null) return RedirectToAction(nameof(Create));
+            if (student == null)
+                return RedirectToAction(nameof(Create));
 
             return View(student);
         }

@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using StudentPortal.Models;
@@ -15,6 +16,8 @@ namespace StudentPortal.Controllers
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly StudentPortalDbContext _context;
 
+        private readonly string[] _roles = new[] { "Student", "Tutor", "Admin" };
+
         public AccountController(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
@@ -25,6 +28,15 @@ namespace StudentPortal.Controllers
             _signInManager = signInManager;
             _roleManager = roleManager;
             _context = context;
+        }
+
+        private async Task EnsureRolesExistAsync()
+        {
+            foreach (var role in _roles)
+            {
+                if (!await _roleManager.RoleExistsAsync(role))
+                    await _roleManager.CreateAsync(new IdentityRole(role));
+            }
         }
 
         [HttpGet]
@@ -44,6 +56,8 @@ namespace StudentPortal.Controllers
                 return View(model);
             }
 
+            await EnsureRolesExistAsync();
+
             var user = new ApplicationUser
             {
                 UserName = model.Email,
@@ -60,21 +74,13 @@ namespace StudentPortal.Controllers
                 return View(model);
             }
 
-            var roles = new[] { "Student", "Tutor", "Admin" };
-            foreach (var role in roles)
-            {
-                if (!await _roleManager.RoleExistsAsync(role))
-                    await _roleManager.CreateAsync(new IdentityRole(role));
-            }
-
             await _userManager.AddToRoleAsync(user, model.Role);
 
-            // Automatically create related entity
             if (model.Role == "Student")
             {
                 var student = new Student
                 {
-                    UserId = user.Id,
+                    ApplicationUserId = user.Id,
                     EnrollmentDate = DateTime.UtcNow
                 };
                 _context.Students.Add(student);
@@ -83,13 +89,14 @@ namespace StudentPortal.Controllers
             {
                 var tutor = new Tutor
                 {
-                    UserId = user.Id,
+                    ApplicationUserId = user.Id,
                     HireDate = DateTime.UtcNow
                 };
                 _context.Tutors.Add(tutor);
             }
 
             await _context.SaveChangesAsync();
+
             await _signInManager.SignInAsync(user, isPersistent: false);
             return RedirectToAction("Index", "Home");
         }
@@ -146,6 +153,8 @@ namespace StudentPortal.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        // Restricted to Admin users only
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public async Task<IActionResult> MakeMeAdmin()
         {
@@ -156,7 +165,8 @@ namespace StudentPortal.Controllers
             if (!await _roleManager.RoleExistsAsync("Admin"))
                 await _roleManager.CreateAsync(new IdentityRole("Admin"));
 
-            await _userManager.AddToRoleAsync(user, "Admin");
+            if (!await _userManager.IsInRoleAsync(user, "Admin"))
+                await _userManager.AddToRoleAsync(user, "Admin");
 
             return Content("You are now an Admin. You can go to /Admin.");
         }
@@ -173,8 +183,10 @@ namespace StudentPortal.Controllers
                 Email = user.Email!,
                 FullName = user.FullName!,
                 CreatedAt = user.CreatedAt,
-                IsStudent = user.StudentProfile != null,
-                IsTutor = user.TutorProfile != null
+                // Fix property names to match your ApplicationUser navigation properties
+                IsStudent = user.Student != null,
+                IsTutor = user.Tutor != null,
+                PhoneNumber = user.PhoneNumber
             };
 
             return View(profileVm);

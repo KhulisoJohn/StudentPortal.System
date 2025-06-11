@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using StudentPortal.Models;
 using StudentPortal.Models.ViewModels;
 using System.Collections.Generic;
@@ -22,11 +23,13 @@ namespace StudentPortal.Controllers
         }
 
         // GET: Admin/Index
+        // WARNING: This loads only first 50 users to prevent performance issues.
+        // Add proper pagination for production use.
         public async Task<IActionResult> Index()
         {
-            var users = _userManager.Users.ToList();
-            var model = new List<AdminUserViewModel>();
+            var users = await _userManager.Users.Take(50).ToListAsync();
 
+            var model = new List<AdminUserViewModel>();
             foreach (var user in users)
             {
                 var roles = await _userManager.GetRolesAsync(user);
@@ -53,7 +56,7 @@ namespace StudentPortal.Controllers
                 return NotFound();
 
             var userRoles = await _userManager.GetRolesAsync(user);
-            var allRoles = _roleManager.Roles.Select(r => r.Name ?? string.Empty).ToList();
+            var allRoles = await _roleManager.Roles.Select(r => r.Name ?? string.Empty).ToListAsync();
 
             var model = new EditUserViewModel
             {
@@ -73,11 +76,23 @@ namespace StudentPortal.Controllers
         public async Task<IActionResult> Edit(EditUserViewModel model)
         {
             if (!ModelState.IsValid)
+            {
+                model.AllRoles = await _roleManager.Roles.Select(r => r.Name ?? string.Empty).ToListAsync();
                 return View(model);
+            }
 
             var user = await _userManager.FindByIdAsync(model.Id);
             if (user == null)
                 return NotFound();
+
+            // Validate roles against existing roles to prevent invalid role injection
+            var validRoles = await _roleManager.Roles.Select(r => r.Name!).ToListAsync();
+            if (model.SelectedRoles.Any(r => !validRoles.Contains(r)))
+            {
+                ModelState.AddModelError("", "One or more selected roles are invalid.");
+                model.AllRoles = validRoles;
+                return View(model);
+            }
 
             user.Email = model.Email;
             user.UserName = model.Email;
@@ -93,6 +108,7 @@ namespace StudentPortal.Controllers
                 if (!removeResult.Succeeded)
                 {
                     ModelState.AddModelError("", "Failed to remove some roles.");
+                    model.AllRoles = validRoles;
                     return View(model);
                 }
             }
@@ -103,6 +119,7 @@ namespace StudentPortal.Controllers
                 if (!addResult.Succeeded)
                 {
                     ModelState.AddModelError("", "Failed to add some roles.");
+                    model.AllRoles = validRoles;
                     return View(model);
                 }
             }
@@ -112,6 +129,8 @@ namespace StudentPortal.Controllers
             {
                 foreach (var error in updateResult.Errors)
                     ModelState.AddModelError("", error.Description);
+
+                model.AllRoles = validRoles;
                 return View(model);
             }
 
@@ -129,12 +148,14 @@ namespace StudentPortal.Controllers
             if (user == null)
                 return NotFound();
 
+            var roles = await _userManager.GetRolesAsync(user);
+
             var model = new AdminUserViewModel
             {
                 Id = user.Id,
                 Email = user.Email ?? string.Empty,
                 FullName = user.FullName ?? string.Empty,
-                Roles = (await _userManager.GetRolesAsync(user)).ToList()
+                Roles = roles.ToList()
             };
 
             return View(model);
