@@ -22,14 +22,11 @@ namespace StudentPortal.Controllers
             _roleManager = roleManager;
         }
 
-        // GET: Admin/Index
-        // WARNING: This loads only first 50 users to prevent performance issues.
-        // Add proper pagination for production use.
         public async Task<IActionResult> Index()
         {
             var users = await _userManager.Users.Take(50).ToListAsync();
-
             var model = new List<AdminUserViewModel>();
+
             foreach (var user in users)
             {
                 var roles = await _userManager.GetRolesAsync(user);
@@ -45,7 +42,6 @@ namespace StudentPortal.Controllers
             return View(model);
         }
 
-        // GET: Admin/Edit/{id}
         public async Task<IActionResult> Edit(string? id)
         {
             if (string.IsNullOrWhiteSpace(id))
@@ -56,28 +52,29 @@ namespace StudentPortal.Controllers
                 return NotFound();
 
             var userRoles = await _userManager.GetRolesAsync(user);
-            var allRoles = await _roleManager.Roles.Select(r => r.Name ?? string.Empty).ToListAsync();
+            var allRoles = await _roleManager.Roles
+                .Select(r => r.Name ?? string.Empty)
+                .ToListAsync();
 
-            var model = new EditUserViewModel
+            return View(new EditUserViewModel
             {
                 Id = user.Id,
                 Email = user.Email ?? string.Empty,
                 FullName = user.FullName ?? string.Empty,
                 SelectedRoles = userRoles.ToList(),
                 AllRoles = allRoles
-            };
-
-            return View(model);
+            });
         }
 
-        // POST: Admin/Edit
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(EditUserViewModel model)
         {
             if (!ModelState.IsValid)
             {
-                model.AllRoles = await _roleManager.Roles.Select(r => r.Name ?? string.Empty).ToListAsync();
+                model.AllRoles = await _roleManager.Roles
+                    .Select(r => r.Name ?? string.Empty)
+                    .ToListAsync();
                 return View(model);
             }
 
@@ -85,43 +82,25 @@ namespace StudentPortal.Controllers
             if (user == null)
                 return NotFound();
 
-            // Validate roles against existing roles to prevent invalid role injection
-            var validRoles = await _roleManager.Roles.Select(r => r.Name!).ToListAsync();
-            if (model.SelectedRoles.Any(r => !validRoles.Contains(r)))
+            // Validate each role
+            foreach (var role in model.SelectedRoles)
             {
-                ModelState.AddModelError("", "One or more selected roles are invalid.");
-                model.AllRoles = validRoles;
-                return View(model);
+                if (!await _roleManager.RoleExistsAsync(role))
+                {
+                    ModelState.AddModelError("", $"Role '{role}' does not exist.");
+                    model.AllRoles = await _roleManager.Roles
+                        .Select(r => r.Name ?? string.Empty)
+                        .ToListAsync();
+                    return View(model);
+                }
             }
 
-            user.Email = model.Email;
-            user.UserName = model.Email;
+            // Update user info
             user.FullName = model.FullName;
-
-            var currentRoles = await _userManager.GetRolesAsync(user);
-            var rolesToRemove = currentRoles.Except(model.SelectedRoles).ToList();
-            var rolesToAdd = model.SelectedRoles.Except(currentRoles).ToList();
-
-            if (rolesToRemove.Any())
+            if (user.Email != model.Email)
             {
-                var removeResult = await _userManager.RemoveFromRolesAsync(user, rolesToRemove);
-                if (!removeResult.Succeeded)
-                {
-                    ModelState.AddModelError("", "Failed to remove some roles.");
-                    model.AllRoles = validRoles;
-                    return View(model);
-                }
-            }
-
-            if (rolesToAdd.Any())
-            {
-                var addResult = await _userManager.AddToRolesAsync(user, rolesToAdd);
-                if (!addResult.Succeeded)
-                {
-                    ModelState.AddModelError("", "Failed to add some roles.");
-                    model.AllRoles = validRoles;
-                    return View(model);
-                }
+                user.Email = model.Email;
+                user.UserName = model.Email;
             }
 
             var updateResult = await _userManager.UpdateAsync(user);
@@ -130,15 +109,40 @@ namespace StudentPortal.Controllers
                 foreach (var error in updateResult.Errors)
                     ModelState.AddModelError("", error.Description);
 
-                model.AllRoles = validRoles;
+                model.AllRoles = await _roleManager.Roles
+                    .Select(r => r.Name ?? string.Empty)
+                    .ToListAsync();
                 return View(model);
+            }
+
+            var currentRoles = await _userManager.GetRolesAsync(user);
+            var toRemove = currentRoles.Except(model.SelectedRoles).ToList();
+            var toAdd = model.SelectedRoles.Except(currentRoles).ToList();
+
+            if (toRemove.Any())
+            {
+                var removeResult = await _userManager.RemoveFromRolesAsync(user, toRemove);
+                if (!removeResult.Succeeded)
+                {
+                    ModelState.AddModelError("", "Error removing roles.");
+                    return View(model);
+                }
+            }
+
+            if (toAdd.Any())
+            {
+                var addResult = await _userManager.AddToRolesAsync(user, toAdd);
+                if (!addResult.Succeeded)
+                {
+                    ModelState.AddModelError("", "Error adding roles.");
+                    return View(model);
+                }
             }
 
             TempData["Success"] = "User updated successfully.";
             return RedirectToAction(nameof(Index));
         }
 
-        // GET: Admin/Delete/{id}
         public async Task<IActionResult> Delete(string? id)
         {
             if (string.IsNullOrWhiteSpace(id))
@@ -150,18 +154,15 @@ namespace StudentPortal.Controllers
 
             var roles = await _userManager.GetRolesAsync(user);
 
-            var model = new AdminUserViewModel
+            return View(new AdminUserViewModel
             {
                 Id = user.Id,
                 Email = user.Email ?? string.Empty,
                 FullName = user.FullName ?? string.Empty,
                 Roles = roles.ToList()
-            };
-
-            return View(model);
+            });
         }
 
-        // POST: Admin/Delete/{id}
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(string? id)
@@ -188,6 +189,39 @@ namespace StudentPortal.Controllers
             }
 
             TempData["Success"] = "User deleted successfully.";
+            return RedirectToAction(nameof(Index));
+        }
+
+        [Authorize]
+        public async Task<IActionResult> MakeMeAdmin()
+        {
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+                return Unauthorized("User not found.");
+
+            // TODO: Replace with config-based check
+            var allowedEmails = new[] { "admin@domain.com" };
+            if (!allowedEmails.Contains(user.Email))
+                return Forbid("You are not allowed to promote yourself.");
+
+            if (!await _roleManager.RoleExistsAsync("Admin"))
+            {
+                var createRole = await _roleManager.CreateAsync(new IdentityRole("Admin"));
+                if (!createRole.Succeeded)
+                    return StatusCode(500, "Failed to create Admin role.");
+            }
+
+            if (!await _userManager.IsInRoleAsync(user, "Admin"))
+            {
+                var addRole = await _userManager.AddToRoleAsync(user, "Admin");
+                if (!addRole.Succeeded)
+                    return StatusCode(500, "Failed to add Admin role.");
+
+                user.Role = "Admin";
+                await _userManager.UpdateAsync(user);
+            }
+
+            TempData["Success"] = "You are now an Admin!";
             return RedirectToAction(nameof(Index));
         }
     }

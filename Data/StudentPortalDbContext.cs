@@ -14,6 +14,7 @@ namespace StudentPortal.Data
         public DbSet<StudentSubject> StudentSubjects { get; set; }
         public DbSet<TutorSubject> TutorSubjects { get; set; }
         public DbSet<ChatChannel> ChatChannels { get; set; }
+        public DbSet<TutorMaterial> TutorMaterials { get; set; }
         public DbSet<UserChatChannel> UserChatChannels { get; set; }
         public DbSet<ChatMessage> ChatMessages { get; set; }
 

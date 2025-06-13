@@ -12,18 +12,20 @@ namespace StudentPortal.Models
         [Required]
         public string ApplicationUserId { get; set; } = string.Empty;
 
-        [ForeignKey("ApplicationUserId")]
+        [ForeignKey(nameof(ApplicationUserId))]
         public ApplicationUser? ApplicationUser { get; set; }
 
-        // Subjects this tutor teaches
         public ICollection<TutorSubject> TutorSubjects { get; set; } = new List<TutorSubject>();
 
+        [StringLength(500)]
         public string? Bio { get; set; }
 
+        [StringLength(100)]
         public string? ContactInfo { get; set; }
 
-        public DateTime HireDate { get; set; } = DateTime.UtcNow;
+         public DateTime HireDate { get; set; }
         public DateTime RegisteredAt { get; set; } = DateTime.UtcNow;
+       
 
         public bool IsActive { get; set; } = true;
     }

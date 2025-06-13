@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+using System.Collections.Generic;
 
 namespace StudentPortal.Models
 {
@@ -8,20 +8,26 @@ namespace StudentPortal.Models
     {
         [Required]
         [StringLength(100)]
-        public string? FullName { get; set; }
+        public string FullName { get; set; } = string.Empty;
 
-        // Added to determine user role explicitly
         [Required]
-        public string? Role { get; set; }  // "Student" or "Tutor"
+        [StringLength(50)]
+        public string Role { get; set; } = "Student"; // Possible values: "Student" or "Tutor"
 
-        // Navigation properties (1-to-1)
+        // Navigation properties
+        public int? StudentId { get; set; }
         public Student? Student { get; set; }
+
+        public int? TutorId { get; set; }
         public Tutor? Tutor { get; set; }
 
-        // Chat system
-        public ICollection<UserChatChannel>? UserChatChannels { get; set; }
-        public ICollection<ChatMessage>? ChatMessages { get; set; }
+        // Collections
+        public virtual ICollection<TutorSubject> TutorSubjects { get; set; } = new List<TutorSubject>();
+        public virtual ICollection<StudentSubject> StudentSubjects { get; set; } = new List<StudentSubject>();
+        public virtual ICollection<UserChatChannel> UserChatChannels { get; set; } = new List<UserChatChannel>();
+        public virtual ICollection<ChatMessage> ChatMessages { get; set; } = new List<ChatMessage>();
 
+        // Timestamp
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     }
 }

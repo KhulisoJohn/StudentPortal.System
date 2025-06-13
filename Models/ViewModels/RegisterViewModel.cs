@@ -8,6 +8,10 @@ namespace StudentPortal.Models.ViewModels
         [EmailAddress(ErrorMessage = "Invalid email address.")]
         public string Email { get; set; } = string.Empty;
 
+        [Required(ErrorMessage = "Phone number is required.")]
+        [Phone(ErrorMessage = "Invalid phone number.")]
+        public string PhoneNumber { get; set; } = string.Empty;
+
         [Required(ErrorMessage = "Full name is required.")]
         [StringLength(100, ErrorMessage = "Full name must be less than 100 characters.")]
         public string FullName { get; set; } = string.Empty;
@@ -24,6 +28,6 @@ namespace StudentPortal.Models.ViewModels
 
         [Required(ErrorMessage = "Role selection is required.")]
         [RegularExpression("Student|Tutor", ErrorMessage = "Invalid role selected.")]
-        public string Role { get; set; } = "Student";  // Default to Student
+        public string Role { get; set; } = "Student";
     }
 }

@@ -6,6 +6,7 @@ using StudentPortal.Data;
 using StudentPortal.Models.ViewModels;
 using System.Threading.Tasks;
 using System.Linq;
+using System;
 
 namespace StudentPortal.Controllers
 {
@@ -16,7 +17,7 @@ namespace StudentPortal.Controllers
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly StudentPortalDbContext _context;
 
-        private readonly string[] _roles = new[] { "Student", "Tutor", "Admin" };
+        private readonly string[] _allowedRoles = new[] { "Student", "Tutor" };
 
         public AccountController(
             UserManager<ApplicationUser> userManager,
@@ -32,7 +33,7 @@ namespace StudentPortal.Controllers
 
         private async Task EnsureRolesExistAsync()
         {
-            foreach (var role in _roles)
+            foreach (var role in _allowedRoles)
             {
                 if (!await _roleManager.RoleExistsAsync(role))
                     await _roleManager.CreateAsync(new IdentityRole(role));
@@ -58,12 +59,19 @@ namespace StudentPortal.Controllers
 
             await EnsureRolesExistAsync();
 
+            if (!_allowedRoles.Contains(model.Role))
+            {
+                ModelState.AddModelError("Role", "Invalid role selected.");
+                return View(model);
+            }
+
             var user = new ApplicationUser
             {
                 UserName = model.Email,
                 Email = model.Email,
                 FullName = model.FullName!,
-                CreatedAt = DateTime.UtcNow
+                CreatedAt = DateTime.UtcNow,
+                PhoneNumber = model.PhoneNumber
             };
 
             var result = await _userManager.CreateAsync(user, model.Password!);
@@ -98,7 +106,7 @@ namespace StudentPortal.Controllers
             await _context.SaveChangesAsync();
 
             await _signInManager.SignInAsync(user, isPersistent: false);
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("EditProfile", "Profile");
         }
 
         [HttpGet]
@@ -128,13 +136,17 @@ namespace StudentPortal.Controllers
             if (result.Succeeded)
             {
                 var roles = await _userManager.GetRolesAsync(user);
+
                 if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
                     return Redirect(returnUrl);
 
                 if (roles.Contains("Admin"))
                     return RedirectToAction("Index", "Admin");
 
-                return RedirectToAction("Index", "Home");
+                if (await ProfileNeedsCompletion(user))
+                    return RedirectToAction("EditProfile", "Profile");
+
+                return RedirectToAction("Index", roles.Contains("Student") ? "Student" : "Tutor");
             }
 
             if (result.IsLockedOut)
@@ -145,6 +157,12 @@ namespace StudentPortal.Controllers
             return View(model);
         }
 
+        private async Task<bool> ProfileNeedsCompletion(ApplicationUser user)
+        {
+            return string.IsNullOrEmpty(user.PhoneNumber) || 
+                   (user.Student == null && user.Tutor == null);
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout()
@@ -153,25 +171,8 @@ namespace StudentPortal.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        // Restricted to Admin users only
-        [Authorize(Roles = "Admin")]
         [HttpGet]
-        public async Task<IActionResult> MakeMeAdmin()
-        {
-            var user = await _userManager.GetUserAsync(User);
-            if (user == null)
-                return RedirectToAction("Login");
-
-            if (!await _roleManager.RoleExistsAsync("Admin"))
-                await _roleManager.CreateAsync(new IdentityRole("Admin"));
-
-            if (!await _userManager.IsInRoleAsync(user, "Admin"))
-                await _userManager.AddToRoleAsync(user, "Admin");
-
-            return Content("You are now an Admin. You can go to /Admin.");
-        }
-
-        [HttpGet]
+        [Authorize]
         public async Task<IActionResult> Profile()
         {
             var user = await _userManager.GetUserAsync(User);
@@ -183,7 +184,6 @@ namespace StudentPortal.Controllers
                 Email = user.Email!,
                 FullName = user.FullName!,
                 CreatedAt = user.CreatedAt,
-                // Fix property names to match your ApplicationUser navigation properties
                 IsStudent = user.Student != null,
                 IsTutor = user.Tutor != null,
                 PhoneNumber = user.PhoneNumber
