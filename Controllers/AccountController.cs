@@ -1,14 +1,14 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using StudentPortal.Models;
-using StudentPortal.Data;
-using StudentPortal.Models.ViewModels;
+using StudentPortalSystem.Models;
+using StudentPortalSystem.Data;
+using StudentPortalSystem.Models.ViewModels;
 using System.Threading.Tasks;
 using System.Linq;
 using System;
 
-namespace StudentPortal.Controllers
+namespace StudentPortalSystem.Controllers
 {
     public class AccountController : Controller
     {

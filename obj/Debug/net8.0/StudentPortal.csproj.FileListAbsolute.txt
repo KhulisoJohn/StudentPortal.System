@@ -498,3 +498,15 @@
 /home/khulysojohn/Development/Student-Tutor-Engagement-System/obj/Debug/net8.0/StudentPortal.pdb
 /home/khulysojohn/Development/Student-Tutor-Engagement-System/obj/Debug/net8.0/StudentPortal.genruntimeconfig.cache
 /home/khulysojohn/Development/Student-Tutor-Engagement-System/obj/Debug/net8.0/ref/StudentPortal.dll
+/home/khulysojohn/Development/StudentPortal.System/obj/Debug/net8.0/StudentPortal.csproj.AssemblyReference.cache
+/home/khulysojohn/Development/StudentPortal.System/obj/Debug/net8.0/StudentPortal.GeneratedMSBuildEditorConfig.editorconfig
+/home/khulysojohn/Development/StudentPortal.System/obj/Debug/net8.0/StudentPortal.AssemblyInfoInputs.cache
+/home/khulysojohn/Development/StudentPortal.System/obj/Debug/net8.0/StudentPortal.AssemblyInfo.cs
+/home/khulysojohn/Development/StudentPortal.System/obj/Debug/net8.0/StudentPortal.csproj.CoreCompileInputs.cache
+/home/khulysojohn/Development/StudentPortal.System/obj/Debug/net8.0/StudentPortal.MvcApplicationPartsAssemblyInfo.cache
+/home/khulysojohn/Development/StudentPortal.System/obj/Debug/net8.0/StudentPortal.RazorAssemblyInfo.cache
+/home/khulysojohn/Development/StudentPortal.System/obj/Debug/net8.0/StudentPortal.RazorAssemblyInfo.cs
+/home/khulysojohn/Development/StudentPortal.System/obj/Debug/net8.0/StudentPortal.sourcelink.json
+/home/khulysojohn/Development/StudentPortal.System/obj/Debug/net8.0/StudentPortal.dll
+/home/khulysojohn/Development/StudentPortal.System/obj/Debug/net8.0/refint/StudentPortal.dll
+/home/khulysojohn/Development/StudentPortal.System/obj/Debug/net8.0/StudentPortal.pdb

@@ -1,5 +1,5 @@
 
-namespace StudentPortal.Models
+namespace StudentPortalSystem.Models
 {
     public class StudentSubject
     {

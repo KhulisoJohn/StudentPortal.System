@@ -2,18 +2,18 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Student_Tutor_Engagement_System.Data;
-using Student_Tutor_Engagement_System.Models;
+using StudentPortalSystem.Data;
+using StudentPortalSystem.Models;
 
-namespace Student_Tutor_Engagement_System.Controllers
+namespace StudentPortalSystem.Controllers
 {
     [Authorize(Roles = "Student")]
     public class StudentController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly StudentPortalDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
 
-        public StudentController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
+        public StudentController(StudentPortalDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
             _userManager = userManager;

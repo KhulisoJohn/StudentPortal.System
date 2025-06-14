@@ -2,13 +2,13 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using StudentPortal.Data;
-using StudentPortal.Models;
+using StudentPortalSystem.Data;
+using StudentPortalSystem.Models;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace StudentPortal.Controllers
+namespace StudentPortalSystem.Controllers
 {
     [Authorize(Roles = "Tutor")]
     public class TutorController : Controller

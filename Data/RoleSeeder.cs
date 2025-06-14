@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
-using StudentPortal.Models;
+using StudentPortalSystem.Models;
 using System;
 using System.IO;
 using System.Threading.Tasks;

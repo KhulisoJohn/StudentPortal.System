@@ -1,8 +1,8 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using StudentPortal.Models;
+using StudentPortalSystem.Models;
 
-namespace StudentPortal.Models
+namespace StudentPortalSystem.Models
 {
     public class Student
     {
@@ -22,7 +22,7 @@ namespace StudentPortal.Models
         public bool IsActive { get; set; } = true;
 
         [Required]
-        public string Grade { get; set; } = string.Empty; // Keep default empty for validation to catch missing data
+        public int Grade { get; set; } // Keep default empty for validation to catch missing data
 
         [Required]
         [DataType(DataType.Date)]

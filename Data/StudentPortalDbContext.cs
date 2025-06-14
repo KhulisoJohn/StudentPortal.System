@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using StudentPortal.Models;
+using StudentPortalSystem.Models;
 
-namespace StudentPortal.Data
+namespace StudentPortalSystem.Data
 {
     public class StudentPortalDbContext : IdentityDbContext<ApplicationUser>
     {

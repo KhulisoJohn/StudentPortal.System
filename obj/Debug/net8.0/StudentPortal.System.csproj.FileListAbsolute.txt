@@ -1,0 +1,9 @@
+/home/khulysojohn/Development/StudentPortal.System/obj/Debug/net8.0/StudentPortal.System.csproj.AssemblyReference.cache
+/home/khulysojohn/Development/StudentPortal.System/obj/Debug/net8.0/StudentPortal.System.GeneratedMSBuildEditorConfig.editorconfig
+/home/khulysojohn/Development/StudentPortal.System/obj/Debug/net8.0/StudentPortal.System.AssemblyInfoInputs.cache
+/home/khulysojohn/Development/StudentPortal.System/obj/Debug/net8.0/StudentPortal.System.AssemblyInfo.cs
+/home/khulysojohn/Development/StudentPortal.System/obj/Debug/net8.0/StudentPortal.System.csproj.CoreCompileInputs.cache
+/home/khulysojohn/Development/StudentPortal.System/obj/Debug/net8.0/StudentPortal.System.MvcApplicationPartsAssemblyInfo.cache
+/home/khulysojohn/Development/StudentPortal.System/obj/Debug/net8.0/StudentPortal.System.RazorAssemblyInfo.cache
+/home/khulysojohn/Development/StudentPortal.System/obj/Debug/net8.0/StudentPortal.System.RazorAssemblyInfo.cs
+/home/khulysojohn/Development/StudentPortal.System/obj/Debug/net8.0/StudentPortal.System.sourcelink.json

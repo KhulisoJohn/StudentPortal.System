@@ -2,13 +2,13 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using StudentPortal.Models;
-using StudentPortal.Models.ViewModels;
+using StudentPortalSystem.Models;
+using StudentPortalSystem.Models.ViewModels;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace StudentPortal.Controllers
+namespace StudentPortalSystem.Controllers
 {
     [Authorize(Roles = "Admin")]
     public class AdminController : Controller

@@ -1,9 +1,9 @@
 using System.Collections.Generic;
-using StudentPortal.Models;
+using StudentPortalSystem.Models;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace StudentPortal.Models
+namespace StudentPortalSystem.Models
 {
     public class Subject
     {

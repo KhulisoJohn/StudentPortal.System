@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations;
 using System.Collections.Generic;
 
-namespace StudentPortal.Models
+namespace StudentPortalSystem.Models
 {
     public class ApplicationUser : IdentityUser
     {
