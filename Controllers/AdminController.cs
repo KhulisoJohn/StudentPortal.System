@@ -53,7 +53,7 @@ namespace StudentPortalSystem.Controllers
 
             var userRoles = await _userManager.GetRolesAsync(user);
             var allRoles = await _roleManager.Roles
-                .Select(r => r.Name ?? string.Empty)
+                .Select(static r => r.Name ?? string.Empty)
                 .ToListAsync();
 
             return View(new EditUserViewModel
@@ -73,7 +73,7 @@ namespace StudentPortalSystem.Controllers
             if (!ModelState.IsValid)
             {
                 model.AllRoles = await _roleManager.Roles
-                    .Select(r => r.Name ?? string.Empty)
+                    .Select(static r => r.Name ?? string.Empty)
                     .ToListAsync();
                 return View(model);
             }
@@ -89,7 +89,7 @@ namespace StudentPortalSystem.Controllers
                 {
                     ModelState.AddModelError("", $"Role '{role}' does not exist.");
                     model.AllRoles = await _roleManager.Roles
-                        .Select(r => r.Name ?? string.Empty)
+                        .Select(static r => r.Name ?? string.Empty)
                         .ToListAsync();
                     return View(model);
                 }
@@ -110,7 +110,7 @@ namespace StudentPortalSystem.Controllers
                     ModelState.AddModelError("", error.Description);
 
                 model.AllRoles = await _roleManager.Roles
-                    .Select(r => r.Name ?? string.Empty)
+                    .Select(static r => r.Name ?? string.Empty)
                     .ToListAsync();
                 return View(model);
             }

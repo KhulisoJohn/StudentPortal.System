@@ -17,7 +17,7 @@ namespace StudentPortalSystem.Migrations
 
             migrationBuilder.CreateTable(
                 name: "AspNetRoles",
-                columns: table => new
+                columns: static table => new
                 {
                     Id = table.Column<string>(type: "varchar(255)", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
@@ -28,15 +28,15 @@ namespace StudentPortalSystem.Migrations
                     ConcurrencyStamp = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4")
                 },
-                constraints: table =>
+                constraints: static table =>
                 {
-                    table.PrimaryKey("PK_AspNetRoles", x => x.Id);
+                    table.PrimaryKey("PK_AspNetRoles", static x => x.Id);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
                 name: "AspNetUsers",
-                columns: table => new
+                columns: static table => new
                 {
                     Id = table.Column<string>(type: "varchar(255)", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
@@ -70,15 +70,15 @@ namespace StudentPortalSystem.Migrations
                     LockoutEnabled = table.Column<bool>(type: "tinyint(1)", nullable: false),
                     AccessFailedCount = table.Column<int>(type: "int", nullable: false)
                 },
-                constraints: table =>
+                constraints: static table =>
                 {
-                    table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                    table.PrimaryKey("PK_AspNetUsers", static x => x.Id);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
                 name: "Subjects",
-                columns: table => new
+                columns: static table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
@@ -86,15 +86,15 @@ namespace StudentPortalSystem.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Grade = table.Column<int>(type: "int", nullable: false)
                 },
-                constraints: table =>
+                constraints: static table =>
                 {
-                    table.PrimaryKey("PK_Subjects", x => x.Id);
+                    table.PrimaryKey("PK_Subjects", static x => x.Id);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
-                columns: table => new
+                columns: static table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
@@ -105,12 +105,12 @@ namespace StudentPortalSystem.Migrations
                     ClaimValue = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4")
                 },
-                constraints: table =>
+                constraints: static table =>
                 {
-                    table.PrimaryKey("PK_AspNetRoleClaims", x => x.Id);
+                    table.PrimaryKey("PK_AspNetRoleClaims", static x => x.Id);
                     table.ForeignKey(
                         name: "FK_AspNetRoleClaims_AspNetRoles_RoleId",
-                        column: x => x.RoleId,
+                        column: static x => x.RoleId,
                         principalTable: "AspNetRoles",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -119,7 +119,7 @@ namespace StudentPortalSystem.Migrations
 
             migrationBuilder.CreateTable(
                 name: "AspNetUserClaims",
-                columns: table => new
+                columns: static table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
@@ -130,12 +130,12 @@ namespace StudentPortalSystem.Migrations
                     ClaimValue = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4")
                 },
-                constraints: table =>
+                constraints: static table =>
                 {
-                    table.PrimaryKey("PK_AspNetUserClaims", x => x.Id);
+                    table.PrimaryKey("PK_AspNetUserClaims", static x => x.Id);
                     table.ForeignKey(
                         name: "FK_AspNetUserClaims_AspNetUsers_UserId",
-                        column: x => x.UserId,
+                        column: static x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -144,7 +144,7 @@ namespace StudentPortalSystem.Migrations
 
             migrationBuilder.CreateTable(
                 name: "AspNetUserLogins",
-                columns: table => new
+                columns: static table => new
                 {
                     LoginProvider = table.Column<string>(type: "varchar(255)", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
@@ -155,12 +155,12 @@ namespace StudentPortalSystem.Migrations
                     UserId = table.Column<string>(type: "varchar(255)", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4")
                 },
-                constraints: table =>
+                constraints: static table =>
                 {
-                    table.PrimaryKey("PK_AspNetUserLogins", x => new { x.LoginProvider, x.ProviderKey });
+                    table.PrimaryKey("PK_AspNetUserLogins", static x => new { x.LoginProvider, x.ProviderKey });
                     table.ForeignKey(
                         name: "FK_AspNetUserLogins_AspNetUsers_UserId",
-                        column: x => x.UserId,
+                        column: static x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -169,25 +169,25 @@ namespace StudentPortalSystem.Migrations
 
             migrationBuilder.CreateTable(
                 name: "AspNetUserRoles",
-                columns: table => new
+                columns: static table => new
                 {
                     UserId = table.Column<string>(type: "varchar(255)", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     RoleId = table.Column<string>(type: "varchar(255)", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4")
                 },
-                constraints: table =>
+                constraints: static table =>
                 {
-                    table.PrimaryKey("PK_AspNetUserRoles", x => new { x.UserId, x.RoleId });
+                    table.PrimaryKey("PK_AspNetUserRoles", static x => new { x.UserId, x.RoleId });
                     table.ForeignKey(
                         name: "FK_AspNetUserRoles_AspNetRoles_RoleId",
-                        column: x => x.RoleId,
+                        column: static x => x.RoleId,
                         principalTable: "AspNetRoles",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_AspNetUserRoles_AspNetUsers_UserId",
-                        column: x => x.UserId,
+                        column: static x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -196,7 +196,7 @@ namespace StudentPortalSystem.Migrations
 
             migrationBuilder.CreateTable(
                 name: "AspNetUserTokens",
-                columns: table => new
+                columns: static table => new
                 {
                     UserId = table.Column<string>(type: "varchar(255)", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
@@ -207,12 +207,12 @@ namespace StudentPortalSystem.Migrations
                     Value = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4")
                 },
-                constraints: table =>
+                constraints: static table =>
                 {
-                    table.PrimaryKey("PK_AspNetUserTokens", x => new { x.UserId, x.LoginProvider, x.Name });
+                    table.PrimaryKey("PK_AspNetUserTokens", static x => new { x.UserId, x.LoginProvider, x.Name });
                     table.ForeignKey(
                         name: "FK_AspNetUserTokens_AspNetUsers_UserId",
-                        column: x => x.UserId,
+                        column: static x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -221,7 +221,7 @@ namespace StudentPortalSystem.Migrations
 
             migrationBuilder.CreateTable(
                 name: "Students",
-                columns: table => new
+                columns: static table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
@@ -233,12 +233,12 @@ namespace StudentPortalSystem.Migrations
                     DateOfBirth = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     CanJoinSubjectChannels = table.Column<bool>(type: "tinyint(1)", nullable: false)
                 },
-                constraints: table =>
+                constraints: static table =>
                 {
-                    table.PrimaryKey("PK_Students", x => x.Id);
+                    table.PrimaryKey("PK_Students", static x => x.Id);
                     table.ForeignKey(
                         name: "FK_Students_AspNetUsers_ApplicationUserId",
-                        column: x => x.ApplicationUserId,
+                        column: static x => x.ApplicationUserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -247,7 +247,7 @@ namespace StudentPortalSystem.Migrations
 
             migrationBuilder.CreateTable(
                 name: "Tutors",
-                columns: table => new
+                columns: static table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
@@ -261,12 +261,12 @@ namespace StudentPortalSystem.Migrations
                     RegisteredAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     IsActive = table.Column<bool>(type: "tinyint(1)", nullable: false)
                 },
-                constraints: table =>
+                constraints: static table =>
                 {
-                    table.PrimaryKey("PK_Tutors", x => x.Id);
+                    table.PrimaryKey("PK_Tutors", static x => x.Id);
                     table.ForeignKey(
                         name: "FK_Tutors_AspNetUsers_ApplicationUserId",
-                        column: x => x.ApplicationUserId,
+                        column: static x => x.ApplicationUserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -275,19 +275,19 @@ namespace StudentPortalSystem.Migrations
 
             migrationBuilder.CreateTable(
                 name: "ChatChannels",
-                columns: table => new
+                columns: static table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Grade = table.Column<int>(type: "int", nullable: false),
                     SubjectId = table.Column<int>(type: "int", nullable: true)
                 },
-                constraints: table =>
+                constraints: static table =>
                 {
-                    table.PrimaryKey("PK_ChatChannels", x => x.Id);
+                    table.PrimaryKey("PK_ChatChannels", static x => x.Id);
                     table.ForeignKey(
                         name: "FK_ChatChannels_Subjects_SubjectId",
-                        column: x => x.SubjectId,
+                        column: static x => x.SubjectId,
                         principalTable: "Subjects",
                         principalColumn: "Id");
                 })
@@ -295,7 +295,7 @@ namespace StudentPortalSystem.Migrations
 
             migrationBuilder.CreateTable(
                 name: "StudentSubjects",
-                columns: table => new
+                columns: static table => new
                 {
                     StudentId = table.Column<int>(type: "int", nullable: false),
                     SubjectId = table.Column<int>(type: "int", nullable: false),
@@ -303,23 +303,23 @@ namespace StudentPortalSystem.Migrations
                     ApplicationUserId = table.Column<string>(type: "varchar(255)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4")
                 },
-                constraints: table =>
+                constraints: static table =>
                 {
-                    table.PrimaryKey("PK_StudentSubjects", x => new { x.StudentId, x.SubjectId });
+                    table.PrimaryKey("PK_StudentSubjects", static x => new { x.StudentId, x.SubjectId });
                     table.ForeignKey(
                         name: "FK_StudentSubjects_AspNetUsers_ApplicationUserId",
-                        column: x => x.ApplicationUserId,
+                        column: static x => x.ApplicationUserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_StudentSubjects_Students_StudentId",
-                        column: x => x.StudentId,
+                        column: static x => x.StudentId,
                         principalTable: "Students",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_StudentSubjects_Subjects_SubjectId",
-                        column: x => x.SubjectId,
+                        column: static x => x.SubjectId,
                         principalTable: "Subjects",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -328,7 +328,7 @@ namespace StudentPortalSystem.Migrations
 
             migrationBuilder.CreateTable(
                 name: "TutorMaterials",
-                columns: table => new
+                columns: static table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
@@ -342,18 +342,18 @@ namespace StudentPortalSystem.Migrations
                     TutorId = table.Column<int>(type: "int", nullable: false),
                     SubjectId = table.Column<int>(type: "int", nullable: false)
                 },
-                constraints: table =>
+                constraints: static table =>
                 {
-                    table.PrimaryKey("PK_TutorMaterials", x => x.Id);
+                    table.PrimaryKey("PK_TutorMaterials", static x => x.Id);
                     table.ForeignKey(
                         name: "FK_TutorMaterials_Subjects_SubjectId",
-                        column: x => x.SubjectId,
+                        column: static x => x.SubjectId,
                         principalTable: "Subjects",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_TutorMaterials_Tutors_TutorId",
-                        column: x => x.TutorId,
+                        column: static x => x.TutorId,
                         principalTable: "Tutors",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -362,7 +362,7 @@ namespace StudentPortalSystem.Migrations
 
             migrationBuilder.CreateTable(
                 name: "TutorSubjects",
-                columns: table => new
+                columns: static table => new
                 {
                     TutorId = table.Column<int>(type: "int", nullable: false),
                     SubjectId = table.Column<int>(type: "int", nullable: false),
@@ -372,23 +372,23 @@ namespace StudentPortalSystem.Migrations
                     ApplicationUserId = table.Column<string>(type: "varchar(255)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4")
                 },
-                constraints: table =>
+                constraints: static table =>
                 {
-                    table.PrimaryKey("PK_TutorSubjects", x => new { x.TutorId, x.SubjectId });
+                    table.PrimaryKey("PK_TutorSubjects", static x => new { x.TutorId, x.SubjectId });
                     table.ForeignKey(
                         name: "FK_TutorSubjects_AspNetUsers_ApplicationUserId",
-                        column: x => x.ApplicationUserId,
+                        column: static x => x.ApplicationUserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_TutorSubjects_Subjects_SubjectId",
-                        column: x => x.SubjectId,
+                        column: static x => x.SubjectId,
                         principalTable: "Subjects",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_TutorSubjects_Tutors_TutorId",
-                        column: x => x.TutorId,
+                        column: static x => x.TutorId,
                         principalTable: "Tutors",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -397,7 +397,7 @@ namespace StudentPortalSystem.Migrations
 
             migrationBuilder.CreateTable(
                 name: "ChatMessages",
-                columns: table => new
+                columns: static table => new
                 {
                     ChatMessageId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
@@ -409,23 +409,23 @@ namespace StudentPortalSystem.Migrations
                     SentAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     ChatChannelId1 = table.Column<int>(type: "int", nullable: true)
                 },
-                constraints: table =>
+                constraints: static table =>
                 {
-                    table.PrimaryKey("PK_ChatMessages", x => x.ChatMessageId);
+                    table.PrimaryKey("PK_ChatMessages", static x => x.ChatMessageId);
                     table.ForeignKey(
                         name: "FK_ChatMessages_AspNetUsers_UserId",
-                        column: x => x.UserId,
+                        column: static x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_ChatMessages_ChatChannels_ChatChannelId",
-                        column: x => x.ChatChannelId,
+                        column: static x => x.ChatChannelId,
                         principalTable: "ChatChannels",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_ChatMessages_ChatChannels_ChatChannelId1",
-                        column: x => x.ChatChannelId1,
+                        column: static x => x.ChatChannelId1,
                         principalTable: "ChatChannels",
                         principalColumn: "Id");
                 })
@@ -433,24 +433,24 @@ namespace StudentPortalSystem.Migrations
 
             migrationBuilder.CreateTable(
                 name: "UserChatChannels",
-                columns: table => new
+                columns: static table => new
                 {
                     UserId = table.Column<string>(type: "varchar(255)", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     ChatChannelId = table.Column<int>(type: "int", nullable: false)
                 },
-                constraints: table =>
+                constraints: static table =>
                 {
-                    table.PrimaryKey("PK_UserChatChannels", x => new { x.UserId, x.ChatChannelId });
+                    table.PrimaryKey("PK_UserChatChannels", static x => new { x.UserId, x.ChatChannelId });
                     table.ForeignKey(
                         name: "FK_UserChatChannels_AspNetUsers_UserId",
-                        column: x => x.UserId,
+                        column: static x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_UserChatChannels_ChatChannels_ChatChannelId",
-                        column: x => x.ChatChannelId,
+                        column: static x => x.ChatChannelId,
                         principalTable: "ChatChannels",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);

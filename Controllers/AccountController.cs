@@ -7,6 +7,7 @@ using StudentPortalSystem.Models.ViewModels;
 using System.Threading.Tasks;
 using System.Linq;
 using System;
+using Microsoft.AspNetCore.Authorization.Infrastructure;
 
 namespace StudentPortalSystem.Controllers
 {
@@ -46,7 +47,9 @@ namespace StudentPortalSystem.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(RegisterViewModel model)
-        {
+    
+            {
+        
             if (!ModelState.IsValid)
                 return View(model);
 
@@ -106,7 +109,7 @@ namespace StudentPortalSystem.Controllers
             await _context.SaveChangesAsync();
 
             await _signInManager.SignInAsync(user, isPersistent: false);
-            return RedirectToAction("EditProfile", "Profile");
+            return RedirectToAction("Create", "Students");
         }
 
         [HttpGet]
@@ -143,8 +146,8 @@ namespace StudentPortalSystem.Controllers
                 if (roles.Contains("Admin"))
                     return RedirectToAction("Index", "Admin");
 
-                if (await ProfileNeedsCompletion(user))
-                    return RedirectToAction("EditProfile", "Profile");
+                if (ProfileNeedsCompletion(user))
+                    return RedirectToAction("Create",roles.Contains("Student") ? "Student" : "Tutor");
 
                 return RedirectToAction("Index", roles.Contains("Student") ? "Student" : "Tutor");
             }
@@ -157,9 +160,9 @@ namespace StudentPortalSystem.Controllers
             return View(model);
         }
 
-        private async Task<bool> ProfileNeedsCompletion(ApplicationUser user)
+        private bool ProfileNeedsCompletion(ApplicationUser user)
         {
-            return string.IsNullOrEmpty(user.PhoneNumber) || 
+            return string.IsNullOrEmpty(user.PhoneNumber) ||
                    (user.Student == null && user.Tutor == null);
         }
 

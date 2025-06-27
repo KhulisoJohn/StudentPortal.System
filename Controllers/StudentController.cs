@@ -125,9 +125,9 @@ namespace StudentPortalSystem.Controllers
         public async Task<IActionResult> Index()
         {
             var students = await _context.Students
-                .Include(s => s.ApplicationUser)
-                .Include(s => s.StudentSubjects)
-                .ThenInclude(ss => ss.Subject)
+                .Include(static s => s.ApplicationUser)
+                .Include(static s => s.StudentSubjects)
+                .ThenInclude(static ss => ss.Subject)
                 .ToListAsync();
 
             return View(students);

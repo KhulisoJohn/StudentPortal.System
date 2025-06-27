@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/home/khulysojohn/Development/StudentPortalSystem/StudentPortalSystem.csproj": {}
+    "/home/khulysojohn/Development/StudentPortal.System/StudentPortalSystem.csproj": {}
   },
   "projects": {
-    "/home/khulysojohn/Development/StudentPortalSystem/StudentPortalSystem.csproj": {
+    "/home/khulysojohn/Development/StudentPortal.System/StudentPortalSystem.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/khulysojohn/Development/StudentPortalSystem/StudentPortalSystem.csproj",
+        "projectUniqueName": "/home/khulysojohn/Development/StudentPortal.System/StudentPortalSystem.csproj",
         "projectName": "StudentPortalSystem",
-        "projectPath": "/home/khulysojohn/Development/StudentPortalSystem/StudentPortalSystem.csproj",
+        "projectPath": "/home/khulysojohn/Development/StudentPortal.System/StudentPortalSystem.csproj",
         "packagesPath": "/home/khulysojohn/.nuget/packages/",
-        "outputPath": "/home/khulysojohn/Development/StudentPortalSystem/obj/",
+        "outputPath": "/home/khulysojohn/Development/StudentPortal.System/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/home/khulysojohn/.nuget/NuGet/NuGet.Config"
