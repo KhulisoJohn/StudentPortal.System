@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "NXIUv3Rqw1o6RyJkfvL+A2S6yHPuHYq3nBoMLr5Sgdk=",
+  "Hash": "yc43faVUnbcncJJNy3u1rGPSpKy5qayP7S3b3RYVEDQ=",
   "Source": "StudentPortalSystem",
   "BasePath": "_content/StudentPortalSystem",
   "Mode": "Default",
@@ -91,6 +91,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot/favicon.ico"
+    },
+    {
+      "Identity": "/home/khulysojohn/Development/StudentPortal.System/wwwroot/images/homebackground.jpg",
+      "SourceId": "StudentPortalSystem",
+      "SourceType": "Discovered",
+      "ContentRoot": "/home/khulysojohn/Development/StudentPortal.System/wwwroot/",
+      "BasePath": "_content/StudentPortalSystem",
+      "RelativePath": "images/homebackground.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/images/homebackground.jpg"
     },
     {
       "Identity": "/home/khulysojohn/Development/StudentPortal.System/wwwroot/js/site.js",

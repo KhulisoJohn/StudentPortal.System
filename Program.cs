@@ -1,58 +1,46 @@
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 using StudentPortalSystem.Data;
 using StudentPortalSystem.Models;
 using DotNetEnv;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Force TLS 1.2
-//System.Net.ServicePointManager.SecurityProtocol = System.Net.SecurityProtocolType.Tls12;
 
- DotNetEnv.Env.Load(Path.Combine(Directory.GetCurrentDirectory(), ".env"));
+Env.Load(Path.Combine(Directory.GetCurrentDirectory(), ".env"));
 
 
-var serveName = Environment.GetEnvironmentVariable("DB_SERVER");
+var dbServer = Environment.GetEnvironmentVariable("DB_SERVER");
+var dbPort = Environment.GetEnvironmentVariable("DB_PORT");
+var dbName = Environment.GetEnvironmentVariable("DB_DATABASE");
+var dbUser = Environment.GetEnvironmentVariable("DB_USER");
+var dbPassword = Environment.GetEnvironmentVariable("DB_PASSWORD");
 
-var passWord = Environment.GetEnvironmentVariable("DB_PASSWORD");
+if (string.IsNullOrEmpty(dbServer) ||
+    string.IsNullOrEmpty(dbPort) ||
+    string.IsNullOrEmpty(dbName) ||
+    string.IsNullOrEmpty(dbUser) ||
+    string.IsNullOrEmpty(dbPassword))
+{
+    throw new InvalidOperationException("One or more required environment variables are missing.");
+}
 
-// Use MySQL connection string
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") 
-    ?? "Server={serverName};Port=3306;Database=StudentPortalDb;User=root;Password={passWord};";
+var connectionString = $"Server={dbServer};Port={dbPort};Database={dbName};User={dbUser};Password={dbPassword};";
 
-// Add services
-builder.Services.AddControllersWithViews();
-builder.Services.AddRazorPages();
 
 builder.Services.AddDbContext<StudentPortalDbContext>(options =>
     options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
+
 
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
     .AddEntityFrameworkStores<StudentPortalDbContext>()
     .AddDefaultTokenProviders();
 
-builder.Services.ConfigureApplicationCookie(options =>
-{
-    options.LoginPath = "/Account/Login";
-    options.AccessDeniedPath = "/Account/AccessDenied";
-});
+
+builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 
-// Seed roles/admin user
-using (var scope = app.Services.CreateScope())
-{
-    var services = scope.ServiceProvider;
-    try
-    {
-        await RoleSeeder.SeedRolesAndAdminUser(services);
-    }
-    catch (Exception ex)
-    {
-        var logger = services.GetRequiredService<ILogger<Program>>();
-        logger.LogError(ex, "Seeding failed");
-    }
-}
 
 if (!app.Environment.IsDevelopment())
 {
@@ -62,11 +50,12 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+
 app.UseRouting();
-app.UseAuthentication();
+app.UseAuthentication(); 
 app.UseAuthorization();
 
-app.MapRazorPages();
+// 🔹 Routing
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");

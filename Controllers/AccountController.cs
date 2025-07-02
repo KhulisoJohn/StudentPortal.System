@@ -147,7 +147,7 @@ namespace StudentPortalSystem.Controllers
                     return RedirectToAction("Index", "Admin");
 
                 if (ProfileNeedsCompletion(user))
-                    return RedirectToAction("Create",roles.Contains("Student") ? "Student" : "Tutor");
+                    return RedirectToAction("Index",roles.Contains("Student") ? "Student" : "Tutor");
 
                 return RedirectToAction("Index", roles.Contains("Student") ? "Student" : "Tutor");
             }

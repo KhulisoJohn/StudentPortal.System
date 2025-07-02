@@ -59,7 +59,7 @@ namespace StudentPortalSystem.Controllers
             {
                 if (selectedSubjects == null || selectedSubjects.Length != 4)
                 {
-                    ModelState.AddModelError("", "Students in grades 10–11 must select exactly 4 subjects.");
+                    ModelState.AddModelError("", "Students in grades 10 to 11 must select exactly 4 subjects.");
                     ViewBag.AllSubjects = await _context.Subjects.ToListAsync();
                     return View(model);
                 }
