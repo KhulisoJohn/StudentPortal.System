@@ -13,6 +13,10 @@
       "PackagePath": "staticwebassets/favicon.ico"
     },
     {
+      "Id": "/home/khulysojohn/Development/StudentPortal.System/wwwroot/images/homebackground.jpg",
+      "PackagePath": "staticwebassets/images/homebackground.jpg"
+    },
+    {
       "Id": "/home/khulysojohn/Development/StudentPortal.System/wwwroot/js/site.js",
       "PackagePath": "staticwebassets/js/site.js"
     },

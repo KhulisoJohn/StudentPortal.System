@@ -1,6 +1,81 @@
 ﻿@{
     ViewData["Title"] = "Privacy Policy";
 }
-<h1>@ViewData["Title"]</h1>
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sma fixed-top">
+        <div class="container">
+            <!-- Brand Name -->
+            <a class="navbar-brand fw-bold" asp-area="" asp-controller="Home" asp-action="Index">StudentPortal</a>
 
-<p>Use this page to detail your site's privacy policy.</p>
+            <!-- Toggler for mobile -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar"
+                aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Nav links -->
+            <div class="collapse navbar-collapse justify-content-end" id="mainNavbar">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="About">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Register">Register</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+
+@{
+    ViewData["Title"] = "Privacy Policy";
+}
+
+<section class="py-5 mt-5">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h1 class="fw-bold">Privacy Policy</h1>
+            <p class="text-muted fs-5">Protecting your data, respecting your privacy.</p>
+        </div>
+
+        <div class="row g-5">
+            <div class="col-md-12">
+                <h4 class="fw-semibold">1. Information We Collect</h4>
+                <p>We collect personal information you voluntarily provide when registering or using StudentPortal, including your name, email address, and educational details. We also collect usage data such as login history and interaction with learning resources.</p>
+
+                <h4 class="fw-semibold mt-4">2. How We Use Your Data</h4>
+                <p>We use your information to:</p>
+                <ul>
+                    <li>Provide access to portal features like course management and chat</li>
+                    <li>Facilitate communication between students and tutors</li>
+                    <li>Improve the platform experience and troubleshoot issues</li>
+                </ul>
+
+                <h4 class="fw-semibold mt-4">3. Sharing & Disclosure</h4>
+                <p>We do not sell your personal data. Your information is shared only with authorized users (e.g., tutors assigned to you) and only for educational purposes within the app. We may disclose data if legally required to do so.</p>
+
+                <h4 class="fw-semibold mt-4">4. Data Security</h4>
+                <p>Your data is stored securely and protected using industry-standard encryption. We take strict measures to prevent unauthorized access, loss, or misuse of your information.</p>
+
+                <h4 class="fw-semibold mt-4">5. Cookies & Tracking</h4>
+                <p>We use minimal cookies for login sessions and basic analytics to understand user behavior and improve the platform.</p>
+
+                <h4 class="fw-semibold mt-4">6. Your Rights</h4>
+                <p>You may request access to your personal data, request corrections, or ask for it to be deleted. Contact us at <a href="mailto:support@studentportal.com">support@studentportal.com</a> for assistance.</p>
+
+                <h4 class="fw-semibold mt-4">7. Changes to this Policy</h4>
+                <p>We may update this privacy policy periodically. Any changes will be posted here, and major updates will be communicated to registered users via email.</p>
+
+                <p class="text-muted mt-5">Effective Date: July 1, 2025</p>
+            </div>
+        </div>
+    </div>
+</section>
+

@@ -1,0 +1,87 @@
+﻿@{
+    ViewData["Title"] = "About";
+}
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sma fixed-top">
+        <div class="container">
+            <!-- Brand Name -->
+            <a class="navbar-brand fw-bold" asp-area="" asp-controller="Home" asp-action="Index">StudentPortal</a>
+
+            <!-- Toggler for mobile -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar"
+                aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Nav links -->
+            <div class="collapse navbar-collapse justify-content-end" id="mainNavbar">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="About">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Register">Register</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<section class="py-5 mt-5">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h1 class="fw-bold">About StudentPortal</h1>
+            <p class="text-muted fs-5">Bridging learners and tutors with smarter tools and simpler interactions.</p>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-md-6">
+                <h3 class="fw-semibold mb-3">📌 Who We Are</h3>
+                <p>
+                    StudentPortal is a modern educational platform designed for students, tutors, and academic institutions.
+                    We bring clarity to learning by simplifying communication, subject management, and resource sharing —
+                    all in one place.
+                </p>
+            </div>
+            <div class="col-md-6">
+                <h3 class="fw-semibold mb-3">🚀 Our Mission</h3>
+                <p>
+                    To transform the way students and tutors interact, collaborate, and grow by providing a seamless
+                    digital space for learning support. Our goal is to foster academic excellence through accessibility,
+                    organization, and real-time communication.
+                </p>
+            </div>
+        </div>
+
+        <div class="row mt-5">
+            <div class="col-md-6">
+                <h3 class="fw-semibold mb-3">🎯 What You Can Expect</h3>
+                <ul class="list-unstyled">
+                    <li class="mb-2">✅ Smart subject and tutor management</li>
+                    <li class="mb-2">✅ Real-time chat between users</li>
+                    <li class="mb-2">✅ A library of learning materials shared by tutors</li>
+                    <li class="mb-2">✅ Secure, user-friendly experience built with ASP.NET Core</li>
+                </ul>
+            </div>
+            <div class="col-md-6">
+                <h3 class="fw-semibold mb-3">📈 Our Vision</h3>
+                <p>
+                    We envision a future where every student has equal access to support, collaboration, and mentorship —
+                    regardless of location. Through technology, we're helping learners reach their full potential.
+                </p>
+            </div>
+        </div>
+
+        <div class="text-center mt-5">
+            <a asp-controller="Account" asp-action="Register" class="btn btn-primary btn-lg">Join StudentPortal Today</a>
+        </div>
+    </div>
+</section>
+
