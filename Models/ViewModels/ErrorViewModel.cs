@@ -1,4 +1,4 @@
-namespace StudentPortalSystem.Models;
+namespace StudentPortalSystem.Models.ViewModels;
 
 public class ErrorViewModel
 {

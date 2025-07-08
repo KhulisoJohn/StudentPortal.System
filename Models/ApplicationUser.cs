@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations;
+using StudentPortalSystem.Chat;
+using StudentPortalSystem.Enums;
 using System.Collections.Generic;
 
 namespace StudentPortalSystem.Models
@@ -11,8 +13,8 @@ namespace StudentPortalSystem.Models
         public string FullName { get; set; } = string.Empty;
 
         [Required]
-        [StringLength(50)]
-        public string Role { get; set; } = "Student"; // Possible values: "Student" or "Tutor"
+        public UserRole Role { get; set; } = UserRole.Student;
+        public UserStatus Status { get; set; } = UserStatus.Pending;
 
         // Navigation properties
         public int? StudentId { get; set; }

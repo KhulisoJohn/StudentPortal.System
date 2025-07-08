@@ -1,7 +1,8 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using StudentPortalSystem.Models;
 
-namespace StudentPortalSystem.Models
+namespace StudentPortalSystem.Chat
 {
     public class ChatChannel
     {

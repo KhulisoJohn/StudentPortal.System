@@ -1,7 +1,8 @@
 using System.ComponentModel.DataAnnotations;
+using StudentPortalSystem.Models;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace StudentPortalSystem.Models
+namespace StudentPortalSystem.Chat
 {
     public class UserChatChannel
     {
