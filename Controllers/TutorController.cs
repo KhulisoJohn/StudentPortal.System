@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using StudentPortalSystem.Chat;
 using Microsoft.EntityFrameworkCore;
 using StudentPortalSystem.Data;
 using StudentPortalSystem.Models;
@@ -28,9 +29,7 @@ namespace StudentPortalSystem.Controllers
             var user = await _userManager.GetUserAsync(User);
             if (user == null) return RedirectToAction("Login", "Account");
 
-            var existing = await _context.Tutors
-                .FirstOrDefaultAsync(t => t.ApplicationUserId == user.Id);
-
+            var existing = await _context.Tutors.FirstOrDefaultAsync(t => t.ApplicationUserId == user.Id);
             if (existing != null) return RedirectToAction(nameof(Details));
 
             ViewBag.AllSubjects = await _context.Subjects.ToListAsync();
@@ -44,8 +43,7 @@ namespace StudentPortalSystem.Controllers
             var user = await _userManager.GetUserAsync(User);
             if (user == null) return RedirectToAction("Login", "Account");
 
-            var existingTutor = await _context.Tutors
-                .FirstOrDefaultAsync(t => t.ApplicationUserId == user.Id);
+            var existingTutor = await _context.Tutors.FirstOrDefaultAsync(t => t.ApplicationUserId == user.Id);
             if (existingTutor != null)
             {
                 ModelState.AddModelError("", "You already have a tutor profile.");
@@ -99,12 +97,11 @@ namespace StudentPortalSystem.Controllers
                 TempData["SuccessMessage"] = "Tutor profile created successfully! Waiting for subject approval.";
                 return RedirectToAction(nameof(Details));
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 await transaction.RollbackAsync();
                 ModelState.AddModelError("", "An error occurred while creating your profile. Please try again.");
                 ViewBag.AllSubjects = await _context.Subjects.ToListAsync();
-                // TODO: Log the exception 'ex' here using your logging framework
                 return View(model);
             }
         }
@@ -139,8 +136,7 @@ namespace StudentPortalSystem.Controllers
 
             if (tutor == null) return RedirectToAction(nameof(Create));
 
-            var isApprovedForSubject = tutor.TutorSubjects
-                .Any(ts => ts.SubjectId == subjectId && ts.Approved);
+            var isApprovedForSubject = tutor.TutorSubjects.Any(ts => ts.SubjectId == subjectId && ts.Approved);
 
             if (!isApprovedForSubject)
             {
@@ -164,8 +160,7 @@ namespace StudentPortalSystem.Controllers
 
             if (tutor == null) return RedirectToAction(nameof(Create));
 
-            var isApprovedForSubject = tutor.TutorSubjects
-                .Any(ts => ts.SubjectId == subjectId && ts.Approved);
+            var isApprovedForSubject = tutor.TutorSubjects.Any(ts => ts.SubjectId == subjectId && ts.Approved);
 
             if (!isApprovedForSubject)
             {
@@ -191,15 +186,12 @@ namespace StudentPortalSystem.Controllers
             var user = await _userManager.GetUserAsync(User);
             if (user == null) return RedirectToAction("Login", "Account");
 
-            var tutor = await _context.Tutors
-                .FirstOrDefaultAsync(t => t.ApplicationUserId == user.Id);
+            var tutor = await _context.Tutors.FirstOrDefaultAsync(t => t.ApplicationUserId == user.Id);
 
             if (tutor == null) return RedirectToAction(nameof(Create));
 
             var isApprovedForSubject = await _context.TutorSubjects
-                .AnyAsync(ts => ts.TutorId == tutor.Id &&
-                               ts.SubjectId == model.SubjectId &&
-                               ts.Approved);
+                .AnyAsync(ts => ts.TutorId == tutor.Id && ts.SubjectId == model.SubjectId && ts.Approved);
 
             if (!isApprovedForSubject)
             {
@@ -214,7 +206,7 @@ namespace StudentPortalSystem.Controllers
                 return View(model);
             }
 
-            // TODO: Handle file uploads here if TutorMaterial contains files (save file, set path etc.)
+            // TODO: Handle file uploads here if TutorMaterial contains files
 
             model.UploadDate = DateTime.UtcNow;
             model.TutorId = tutor.Id;

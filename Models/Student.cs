@@ -20,6 +20,7 @@ namespace StudentPortalSystem.Models
         public DateTime EnrollmentDate { get; set; } = DateTime.UtcNow;
 
         public UserStatus Status { get; set; } = UserStatus.Pending;
+        public string FullName { get; set; } = string.Empty;
 
         [Required]
         public GradeRange Grade { get; set; }
@@ -29,5 +30,6 @@ namespace StudentPortalSystem.Models
         public DateTime DateOfBirth { get; set; }
 
         public bool CanJoinSubjectChannels { get; set; } = false;
+        
     }
 }

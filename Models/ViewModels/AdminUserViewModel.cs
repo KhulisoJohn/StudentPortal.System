@@ -1,4 +1,5 @@
 using StudentPortalSystem.Enums;
+using StudentPortalSystem.Migrations;
 using System.ComponentModel.DataAnnotations;
 namespace StudentPortalSystem.Models.ViewModels
 {
@@ -9,8 +10,9 @@ namespace StudentPortalSystem.Models.ViewModels
         public string FullName { get; set; } = string.Empty;
          [Required]
         public UserRole Role { get; set; } = UserRole.Student;
+         public  string PhoneNumber {get; set;} = string.Empty;
 
-        public bool IsActive { get; set; }  // optional, for locking users
+        public UserStatus Status { get; set; } = UserStatus.Pending;
     }
 }
 

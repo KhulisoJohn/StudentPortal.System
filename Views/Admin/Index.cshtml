@@ -51,7 +51,7 @@
             <tr>
                 <td>@user.Email</td>
                 <td>@user.FullName</td>
-                <td>@string.Join(", ", user.Roles)</td>
+                <td>@string.Join(", ", user.Role)</td>
                 <td>
                     <a asp-action="Edit" asp-route-id="@user.Id" class="btn btn-primary btn-sm">Edit</a>
                     <a asp-action="Delete" asp-route-id="@user.Id" class="btn btn-danger btn-sm">Delete</a>
