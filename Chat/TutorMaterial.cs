@@ -1,7 +1,8 @@
 using System;
+using StudentPortalSystem.Models;
 using System.ComponentModel.DataAnnotations;
 
-namespace StudentPortalSystem.Models
+namespace StudentPortalSystem.Chat
 {
     public class TutorMaterial
     {

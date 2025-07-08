@@ -1,8 +1,9 @@
 
 using System.ComponentModel.DataAnnotations;
+using StudentPortalSystem.Models;
 using System;
 
-namespace StudentPortalSystem.Models
+namespace StudentPortalSystem.Chat
 {
     public class ChatMessage
     {
