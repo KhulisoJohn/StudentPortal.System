@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using StudentPortalSystem.Enums;
 
 namespace StudentPortalSystem.Models.ViewModels
 {
@@ -27,7 +28,6 @@ namespace StudentPortalSystem.Models.ViewModels
         public string ConfirmPassword { get; set; } = string.Empty;
 
         [Required(ErrorMessage = "Role selection is required.")]
-        [RegularExpression("Student|Tutor", ErrorMessage = "Invalid role selected.")]
-        public string Role { get; set; } = "Student";
+        public UserRole Role { get; set; } = UserRole.Student;
     }
 }

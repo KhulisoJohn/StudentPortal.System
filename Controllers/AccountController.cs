@@ -1,13 +1,13 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using StudentPortalSystem.Models;
+using StudentPortalSystem.Enums;
 using StudentPortalSystem.Data;
+using StudentPortalSystem.Models;
 using StudentPortalSystem.Models.ViewModels;
-using System.Threading.Tasks;
-using System.Linq;
 using System;
-using Microsoft.AspNetCore.Authorization.Infrastructure;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace StudentPortalSystem.Controllers
 {
@@ -18,7 +18,8 @@ namespace StudentPortalSystem.Controllers
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly StudentPortalDbContext _context;
 
-        private readonly string[] _allowedRoles = new[] { "Student", "Tutor" };
+        // Use enum values here, not string
+        private readonly UserRole[] _allowedRoles = new[] { UserRole.Student, UserRole.Tutor };
 
         public AccountController(
             UserManager<ApplicationUser> userManager,
@@ -36,8 +37,9 @@ namespace StudentPortalSystem.Controllers
         {
             foreach (var role in _allowedRoles)
             {
-                if (!await _roleManager.RoleExistsAsync(role))
-                    await _roleManager.CreateAsync(new IdentityRole(role));
+                // role.ToString() to get string name
+                if (!await _roleManager.RoleExistsAsync(role.ToString()))
+                    await _roleManager.CreateAsync(new IdentityRole(role.ToString()));
             }
         }
 
@@ -47,13 +49,11 @@ namespace StudentPortalSystem.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(RegisterViewModel model)
-    
-            {
-        
+        {
             if (!ModelState.IsValid)
                 return View(model);
 
-            var existingUser = await _userManager.FindByEmailAsync(model.Email!);
+            var existingUser = await _userManager.FindByEmailAsync(model.Email);
             if (existingUser != null)
             {
                 ModelState.AddModelError("Email", "Email is already registered.");
@@ -72,12 +72,12 @@ namespace StudentPortalSystem.Controllers
             {
                 UserName = model.Email,
                 Email = model.Email,
-                FullName = model.FullName!,
+                FullName = model.FullName,
                 CreatedAt = DateTime.UtcNow,
                 PhoneNumber = model.PhoneNumber
             };
 
-            var result = await _userManager.CreateAsync(user, model.Password!);
+            var result = await _userManager.CreateAsync(user, model.Password);
             if (!result.Succeeded)
             {
                 foreach (var error in result.Errors)
@@ -85,31 +85,32 @@ namespace StudentPortalSystem.Controllers
                 return View(model);
             }
 
-            await _userManager.AddToRoleAsync(user, model.Role);
+            // Convert enum to string here for Identity methods
+            await _userManager.AddToRoleAsync(user, model.Role.ToString());
 
-            if (model.Role == "Student")
-            {
-                var student = new Student
-                {
-                    ApplicationUserId = user.Id,
-                    EnrollmentDate = DateTime.UtcNow
-                };
-                _context.Students.Add(student);
-            }
-            else if (model.Role == "Tutor")
+            if (model.Role == UserRole.Tutor)
             {
                 var tutor = new Tutor
                 {
                     ApplicationUserId = user.Id,
-                    HireDate = DateTime.UtcNow
+                    HireDate = DateTime.UtcNow,
+                    IsActive = true
                 };
                 _context.Tutors.Add(tutor);
+                await _context.SaveChangesAsync();
+
+                await _signInManager.SignInAsync(user, isPersistent: false);
+                return RedirectToAction("Index", "Tutor");
+            }
+            else if (model.Role == UserRole.Student)
+            {
+                // No student entity created here yet, but you can add logic later
+
+                await _signInManager.SignInAsync(user, isPersistent: false);
+                return RedirectToAction("Enroll", "Student");
             }
 
-            await _context.SaveChangesAsync();
-
-            await _signInManager.SignInAsync(user, isPersistent: false);
-            return RedirectToAction("Create", "Students");
+            return RedirectToAction("Index", "Home");
         }
 
         [HttpGet]
@@ -126,16 +127,14 @@ namespace StudentPortalSystem.Controllers
             if (!ModelState.IsValid)
                 return View(model);
 
-            var user = await _userManager.FindByEmailAsync(model.Email!);
+            var user = await _userManager.FindByEmailAsync(model.Email);
             if (user == null)
             {
                 ModelState.AddModelError("", "Invalid login attempt.");
                 return View(model);
             }
 
-            var result = await _signInManager.PasswordSignInAsync(
-                user.UserName!, model.Password!, model.RememberMe, lockoutOnFailure: true);
-
+            var result = await _signInManager.PasswordSignInAsync(user.UserName, model.Password, model.RememberMe, lockoutOnFailure: true);
             if (result.Succeeded)
             {
                 var roles = await _userManager.GetRolesAsync(user);
@@ -143,13 +142,16 @@ namespace StudentPortalSystem.Controllers
                 if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
                     return Redirect(returnUrl);
 
-                if (roles.Contains("Admin"))
+                if (roles.Contains(UserRole.Admin.ToString()))
                     return RedirectToAction("Index", "Admin");
 
-                if (ProfileNeedsCompletion(user))
-                    return RedirectToAction("Index",roles.Contains("Student") ? "Student" : "Tutor");
+                if (roles.Contains(UserRole.Student.ToString()))
+                    return RedirectToAction("Index", "Student");
 
-                return RedirectToAction("Index", roles.Contains("Student") ? "Student" : "Tutor");
+                if (roles.Contains(UserRole.Tutor.ToString()))
+                    return RedirectToAction("Index", "Tutor");
+
+                return RedirectToAction("Index", "Home");
             }
 
             if (result.IsLockedOut)
@@ -160,39 +162,12 @@ namespace StudentPortalSystem.Controllers
             return View(model);
         }
 
-        private bool ProfileNeedsCompletion(ApplicationUser user)
-        {
-            return string.IsNullOrEmpty(user.PhoneNumber) ||
-                   (user.Student == null && user.Tutor == null);
-        }
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
-        }
-
-        [HttpGet]
-        [Authorize]
-        public async Task<IActionResult> Profile()
-        {
-            var user = await _userManager.GetUserAsync(User);
-            if (user == null)
-                return RedirectToAction("Login");
-
-            var profileVm = new ProfileViewModel
-            {
-                Email = user.Email!,
-                FullName = user.FullName!,
-                CreatedAt = user.CreatedAt,
-                IsStudent = user.Student != null,
-                IsTutor = user.Tutor != null,
-                PhoneNumber = user.PhoneNumber
-            };
-
-            return View(profileVm);
         }
     }
 }

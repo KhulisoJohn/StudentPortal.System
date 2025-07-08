@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel.DataAnnotations;
+using StudentPortalSystem.Enums;
 
 namespace StudentPortalSystem.Models.ViewModels
 {
@@ -7,8 +8,11 @@ namespace StudentPortalSystem.Models.ViewModels
     {
         public DateTime CreatedAt { get; set; }
 
-        public bool IsStudent { get; set; }
-        public bool IsTutor { get; set; }
+        // Detect roles explicitly using enum instead of flags
+        public UserRole Role { get; set; }
+
+        public bool IsStudent => Role == UserRole.Student;
+        public bool IsTutor => Role == UserRole.Tutor;
 
         [Required(ErrorMessage = "Full name is required.")]
         [StringLength(100, ErrorMessage = "Full name must be less than 100 characters.")]
