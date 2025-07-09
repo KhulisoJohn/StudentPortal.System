@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -23,7 +24,8 @@ namespace StudentPortalSystem.Controllers
             _userManager = userManager;
         }
 
-        // GET: Student/Create or redirect if exists
+        // GET: Student/Create
+        [HttpGet]
         public async Task<IActionResult> Create()
         {
             var user = await _userManager.GetUserAsync(User);
@@ -35,7 +37,14 @@ namespace StudentPortalSystem.Controllers
                 return RedirectToAction(nameof(Details));
 
             ViewBag.AllSubjects = await _context.Subjects.ToListAsync();
-            return View();
+
+            var model = new Student
+            {
+                EnrollmentDate = DateTime.UtcNow,
+                Status = UserStatus.Active
+            };
+
+            return View(model);
         }
 
         // POST: Student/Create
@@ -44,13 +53,8 @@ namespace StudentPortalSystem.Controllers
         public async Task<IActionResult> Create(Student model, int[] selectedSubjects)
         {
             var user = await _userManager.GetUserAsync(User);
-            if (user == null) return RedirectToAction("Login", "Account");
-
-            if (!ModelState.IsValid)
-            {
-                ViewBag.AllSubjects = await _context.Subjects.ToListAsync();
-                return View(model);
-            }
+            if (user == null)
+                return RedirectToAction("Login", "Account");
 
             var existingStudent = await _context.Students
                 .AsNoTracking()
@@ -59,7 +63,12 @@ namespace StudentPortalSystem.Controllers
             if (existingStudent != null)
                 return RedirectToAction(nameof(Details));
 
-            // Compare enum values directly
+            if (!ModelState.IsValid)
+            {
+                ViewBag.AllSubjects = await _context.Subjects.ToListAsync();
+                return View(model);
+            }
+
             if (model.Grade >= GradeRange.Grade10 && model.Grade <= GradeRange.Grade12)
             {
                 if (selectedSubjects == null || selectedSubjects.Length != 4)
@@ -75,7 +84,7 @@ namespace StudentPortalSystem.Controllers
             }
             else
             {
-                ModelState.AddModelError("Grade", "Invalid grade. Only grades 4 to 12 are supported.");
+                ModelState.AddModelError("Grade", "Only grades 4 to 12 are supported.");
                 ViewBag.AllSubjects = await _context.Subjects.ToListAsync();
                 return View(model);
             }
@@ -85,6 +94,7 @@ namespace StudentPortalSystem.Controllers
 
             model.ApplicationUserId = user.Id;
             model.EnrollmentDate = DateTime.UtcNow;
+            model.Status = UserStatus.Active;
             model.CanJoinSubjectChannels = age >= 12;
 
             try
@@ -101,9 +111,9 @@ namespace StudentPortalSystem.Controllers
                 _context.StudentSubjects.AddRange(studentSubjects);
                 await _context.SaveChangesAsync();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                ModelState.AddModelError("", "An unexpected error occurred. Please try again.");
+                ModelState.AddModelError("", "Unexpected error: " + ex.Message);
                 ViewBag.AllSubjects = await _context.Subjects.ToListAsync();
                 return View(model);
             }
@@ -112,9 +122,11 @@ namespace StudentPortalSystem.Controllers
         }
 
         // GET: Student/Details
+        [HttpGet]
         public async Task<IActionResult> Details()
         {
             var user = await _userManager.GetUserAsync(User);
+
             var student = await _context.Students
                 .Include(s => s.StudentSubjects)
                 .ThenInclude(ss => ss.Subject)
@@ -127,6 +139,7 @@ namespace StudentPortalSystem.Controllers
         }
 
         // GET: Student/Edit
+        [HttpGet]
         public async Task<IActionResult> Edit()
         {
             var user = await _userManager.GetUserAsync(User);
@@ -138,21 +151,9 @@ namespace StudentPortalSystem.Controllers
                 return RedirectToAction(nameof(Create));
 
             ViewBag.AllSubjects = await _context.Subjects.ToListAsync();
-            var selectedSubjectIds = student.StudentSubjects.Select(ss => ss.SubjectId).ToArray();
+            ViewBag.SelectedSubjects = student.StudentSubjects.Select(ss => ss.SubjectId).ToArray();
 
-            var model = new Student
-            {
-                Id = student.Id,
-                ApplicationUserId = student.ApplicationUserId,
-                FullName = user.FullName,
-                DateOfBirth = student.DateOfBirth,
-                Grade = student.Grade,
-                EnrollmentDate = student.EnrollmentDate,
-                CanJoinSubjectChannels = student.CanJoinSubjectChannels
-            };
-
-            ViewBag.SelectedSubjects = selectedSubjectIds;
-            return View(model);
+            return View(student);
         }
 
         // POST: Student/Edit
@@ -161,7 +162,12 @@ namespace StudentPortalSystem.Controllers
         public async Task<IActionResult> Edit(Student model, int[] selectedSubjects)
         {
             var user = await _userManager.GetUserAsync(User);
-            if (user == null) return RedirectToAction("Login", "Account");
+            var student = await _context.Students
+                .Include(s => s.StudentSubjects)
+                .FirstOrDefaultAsync(s => s.Id == model.Id && s.ApplicationUserId == user.Id);
+
+            if (student == null)
+                return NotFound();
 
             if (!ModelState.IsValid)
             {
@@ -170,18 +176,11 @@ namespace StudentPortalSystem.Controllers
                 return View(model);
             }
 
-            var student = await _context.Students
-                .Include(s => s.StudentSubjects)
-                .FirstOrDefaultAsync(s => s.Id == model.Id && s.ApplicationUserId == user.Id);
-
-            if (student == null)
-                return NotFound();
-
             if (model.Grade >= GradeRange.Grade10 && model.Grade <= GradeRange.Grade12)
             {
-                if (selectedSubjects == null || selectedSubjects.Length != 4)
+                if (selectedSubjects.Length != 4)
                 {
-                    ModelState.AddModelError("", "Students in grades 10 to 12 must select exactly 4 subjects.");
+                    ModelState.AddModelError("", "You must select exactly 4 subjects.");
                     ViewBag.AllSubjects = await _context.Subjects.ToListAsync();
                     ViewBag.SelectedSubjects = selectedSubjects;
                     return View(model);
@@ -191,13 +190,6 @@ namespace StudentPortalSystem.Controllers
             {
                 selectedSubjects = await _context.Subjects.Select(s => s.Id).ToArrayAsync();
             }
-            else
-            {
-                ModelState.AddModelError("Grade", "Invalid grade. Only grades 4 to 12 are supported.");
-                ViewBag.AllSubjects = await _context.Subjects.ToListAsync();
-                ViewBag.SelectedSubjects = selectedSubjects;
-                return View(model);
-            }
 
             var age = DateTime.Today.Year - model.DateOfBirth.Year;
             if (model.DateOfBirth.Date > DateTime.Today.AddYears(-age)) age--;
@@ -205,26 +197,24 @@ namespace StudentPortalSystem.Controllers
             student.DateOfBirth = model.DateOfBirth;
             student.Grade = model.Grade;
             student.CanJoinSubjectChannels = age >= 12;
-            student.EnrollmentDate = student.EnrollmentDate; // keep original
 
-            // Update subjects
             _context.StudentSubjects.RemoveRange(student.StudentSubjects);
 
-            var newStudentSubjects = selectedSubjects.Select(subjectId => new StudentSubject
+            var newSubjects = selectedSubjects.Select(subjectId => new StudentSubject
             {
                 StudentId = student.Id,
                 SubjectId = subjectId
             });
 
-            _context.StudentSubjects.AddRange(newStudentSubjects);
+            _context.StudentSubjects.AddRange(newSubjects);
 
             try
             {
                 await _context.SaveChangesAsync();
             }
-            catch (Exception)
+            catch
             {
-                ModelState.AddModelError("", "An error occurred while updating. Please try again.");
+                ModelState.AddModelError("", "Failed to save. Try again.");
                 ViewBag.AllSubjects = await _context.Subjects.ToListAsync();
                 ViewBag.SelectedSubjects = selectedSubjects;
                 return View(model);
@@ -233,7 +223,46 @@ namespace StudentPortalSystem.Controllers
             return RedirectToAction(nameof(Details));
         }
 
-        // GET: Student/Index (list all students)
+        // GET: Student/DeleteAccount
+        [HttpGet]
+        public async Task<IActionResult> DeleteAccount()
+        {
+            var user = await _userManager.GetUserAsync(User);
+            var student = await _context.Students
+                .Include(s => s.StudentSubjects)
+                .FirstOrDefaultAsync(s => s.ApplicationUserId == user.Id);
+
+            if (student == null)
+                return RedirectToAction(nameof(Create));
+
+            return View(student);
+        }
+
+        // POST: Student/DeleteAccount
+        [HttpPost, ActionName("DeleteAccount")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed()
+        {
+            var user = await _userManager.GetUserAsync(User);
+            var student = await _context.Students
+                .Include(s => s.StudentSubjects)
+                .FirstOrDefaultAsync(s => s.ApplicationUserId == user.Id);
+
+            if (student != null)
+            {
+                _context.StudentSubjects.RemoveRange(student.StudentSubjects);
+                _context.Students.Remove(student);
+                await _context.SaveChangesAsync();
+            }
+
+            await _userManager.DeleteAsync(user);
+            await HttpContext.SignOutAsync();
+            return RedirectToAction("Index", "Home");
+        }
+
+        // GET: Admin-only list of students
+        [HttpGet]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Index()
         {
             var students = await _context.Students
