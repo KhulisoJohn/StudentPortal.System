@@ -1,0 +1,16 @@
+@model StudentPortalSystem.Models.Student
+
+<h2>Hello, @Model.FullName</h2>
+<p>Grade: @Model.Grade</p>
+<p>DOB: @Model.DateOfBirth.ToShortDateString()</p>
+<p>Enrolled:@Model.EnrollmentDate.ToString("dd MMM yyyy")
+</p>
+
+<h3>Subjects</h3>
+<ul>
+@foreach (var subject in Model.StudentSubjects?.Select(ss => ss.Subject) ?? Enumerable.Empty<Subject>())
+{
+    <li>@subject?.Name</li>
+}
+
+</ul>
