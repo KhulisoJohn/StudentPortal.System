@@ -1,6 +1,6 @@
 # 🎓 StudentPortal.System
 
-**StudentPortal.System** is a modern web application built with **ASP.NET Core MVC** and **MongoDB**, designed to streamline management of educational entities such as Students, Tutors, Subjects, and Grades — with real-time chat support between users.
+**StudentPortal.System** is a modern web application built with **ASP.NET Core MVC** and **mySQL**, designed to streamline management of educational entities such as Students, Tutors, Subjects, and Grades — with real-time chat support between users.
 
 > 🔐 Secrets like database credentials are stored in a `.env` file and excluded from version control for security.
 

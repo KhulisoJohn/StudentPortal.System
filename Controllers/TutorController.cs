@@ -1,13 +1,11 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using StudentPortalSystem.Chat;
 using Microsoft.EntityFrameworkCore;
+using StudentPortalSystem.Chat;
 using StudentPortalSystem.Data;
 using StudentPortalSystem.Models;
-using System;
-using System.Linq;
-using System.Threading.Tasks;
+
 
 namespace StudentPortalSystem.Controllers
 {
@@ -23,6 +21,7 @@ namespace StudentPortalSystem.Controllers
             _userManager = userManager;
         }
 
+        // GET: Tutor/Create
         [HttpGet]
         public async Task<IActionResult> Create()
         {
@@ -36,6 +35,7 @@ namespace StudentPortalSystem.Controllers
             return View();
         }
 
+        // POST: Tutor/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Tutor model, int[] selectedSubjects)
@@ -106,6 +106,7 @@ namespace StudentPortalSystem.Controllers
             }
         }
 
+        // GET: Tutor/Details
         [HttpGet]
         public async Task<IActionResult> Details()
         {
@@ -118,11 +119,152 @@ namespace StudentPortalSystem.Controllers
                     .ThenInclude(ts => ts.Subject)
                 .FirstOrDefaultAsync(t => t.ApplicationUserId == user.Id);
 
-            if (tutor == null) return RedirectToAction(nameof(Create));
+            if (tutor == null)
+            {
+                // Auto-create tutor if not exists
+                tutor = new Tutor
+                {
+                    ApplicationUserId = user.Id,
+                    RegisteredAt = DateTime.UtcNow,
+                    HireDate = DateTime.UtcNow,
+                    IsActive = true
+                };
+
+                _context.Tutors.Add(tutor);
+                await _context.SaveChangesAsync();
+            }
 
             return View(tutor);
         }
 
+        // GET: Tutor/Edit
+        [HttpGet]
+        public async Task<IActionResult> Edit()
+        {
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null) return RedirectToAction("Login", "Account");
+
+            var tutor = await _context.Tutors
+                .Include(t => t.TutorSubjects)
+                .FirstOrDefaultAsync(t => t.ApplicationUserId == user.Id);
+
+            if (tutor == null) return RedirectToAction(nameof(Details));
+
+            ViewBag.AllSubjects = await _context.Subjects.ToListAsync();
+            ViewBag.SelectedSubjects = tutor.TutorSubjects.Select(ts => ts.SubjectId).ToArray();
+
+            return View(tutor);
+        }
+
+        // POST: Tutor/Edit
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(Tutor model, int[] selectedSubjects)
+        {
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null) return RedirectToAction("Login", "Account");
+
+            var tutor = await _context.Tutors
+                .Include(t => t.TutorSubjects)
+                .FirstOrDefaultAsync(t => t.Id == model.Id && t.ApplicationUserId == user.Id);
+
+            if (tutor == null) return NotFound();
+
+            if (!ModelState.IsValid)
+            {
+                ViewBag.AllSubjects = await _context.Subjects.ToListAsync();
+                ViewBag.SelectedSubjects = selectedSubjects;
+                return View(model);
+            }
+
+            if (selectedSubjects == null || selectedSubjects.Length == 0)
+            {
+                ModelState.AddModelError("", "You must select at least one subject.");
+                ViewBag.AllSubjects = await _context.Subjects.ToListAsync();
+                ViewBag.SelectedSubjects = selectedSubjects;
+                return View(model);
+            }
+
+            var validSubjectIds = await _context.Subjects.Select(s => s.Id).ToListAsync();
+            if (!selectedSubjects.All(id => validSubjectIds.Contains(id)))
+            {
+                ModelState.AddModelError("", "One or more selected subjects are invalid.");
+                ViewBag.AllSubjects = await _context.Subjects.ToListAsync();
+                ViewBag.SelectedSubjects = selectedSubjects;
+                return View(model);
+            }
+
+            tutor.IsActive = model.IsActive;
+            tutor.HireDate = model.HireDate;
+
+            _context.TutorSubjects.RemoveRange(tutor.TutorSubjects);
+
+            var newSubjects = selectedSubjects.Select(subjectId => new TutorSubject
+            {
+                TutorId = tutor.Id,
+                SubjectId = subjectId,
+                Approved = false // Reset approval on update - or adjust logic as you see fit
+            }).ToList();
+
+            _context.TutorSubjects.AddRange(newSubjects);
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch
+            {
+                ModelState.AddModelError("", "Failed to save changes.");
+                ViewBag.AllSubjects = await _context.Subjects.ToListAsync();
+                ViewBag.SelectedSubjects = selectedSubjects;
+                return View(model);
+            }
+
+            return RedirectToAction(nameof(Details));
+        }
+
+        // GET: Tutor/DeleteAccount
+        [HttpGet]
+        public async Task<IActionResult> DeleteAccount()
+        {
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null) return RedirectToAction("Login", "Account");
+
+            var tutor = await _context.Tutors
+                .Include(t => t.TutorSubjects)
+                .FirstOrDefaultAsync(t => t.ApplicationUserId == user.Id);
+
+            if (tutor == null) return RedirectToAction(nameof(Details));
+
+            return View(tutor);
+        }
+
+        // POST: Tutor/DeleteAccount
+        [HttpPost, ActionName("DeleteAccount")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed()
+        {
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null) return RedirectToAction("Login", "Account");
+
+            var tutor = await _context.Tutors
+                .Include(t => t.TutorSubjects)
+                .FirstOrDefaultAsync(t => t.ApplicationUserId == user.Id);
+
+            if (tutor != null)
+            {
+                _context.TutorSubjects.RemoveRange(tutor.TutorSubjects);
+                _context.Tutors.Remove(tutor);
+                await _context.SaveChangesAsync();
+            }
+
+            await _userManager.DeleteAsync(user);
+    
+
+            return RedirectToAction("Index", "Home");
+        }
+
+        // POST: Tutor/JoinChannel
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> JoinChannel(int subjectId)
@@ -134,7 +276,7 @@ namespace StudentPortalSystem.Controllers
                 .Include(t => t.TutorSubjects)
                 .FirstOrDefaultAsync(t => t.ApplicationUserId == user.Id);
 
-            if (tutor == null) return RedirectToAction(nameof(Create));
+            if (tutor == null) return RedirectToAction(nameof(Details));
 
             var isApprovedForSubject = tutor.TutorSubjects.Any(ts => ts.SubjectId == subjectId && ts.Approved);
 
@@ -148,6 +290,7 @@ namespace StudentPortalSystem.Controllers
             return RedirectToAction(nameof(Details));
         }
 
+        // GET: Tutor/UploadMaterial
         [HttpGet]
         public async Task<IActionResult> UploadMaterial(int subjectId)
         {
@@ -158,7 +301,7 @@ namespace StudentPortalSystem.Controllers
                 .Include(t => t.TutorSubjects)
                 .FirstOrDefaultAsync(t => t.ApplicationUserId == user.Id);
 
-            if (tutor == null) return RedirectToAction(nameof(Create));
+            if (tutor == null) return RedirectToAction(nameof(Details));
 
             var isApprovedForSubject = tutor.TutorSubjects.Any(ts => ts.SubjectId == subjectId && ts.Approved);
 
@@ -179,16 +322,17 @@ namespace StudentPortalSystem.Controllers
             return View(new TutorMaterial { SubjectId = subjectId });
         }
 
+        // POST: Tutor/UploadMaterial
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> UploadMaterial(TutorMaterial model)
+        public async Task<IActionResult> UploadMaterial(TutorMaterial model )
         {
             var user = await _userManager.GetUserAsync(User);
             if (user == null) return RedirectToAction("Login", "Account");
 
             var tutor = await _context.Tutors.FirstOrDefaultAsync(t => t.ApplicationUserId == user.Id);
 
-            if (tutor == null) return RedirectToAction(nameof(Create));
+            if (tutor == null) return RedirectToAction(nameof(Details));
 
             var isApprovedForSubject = await _context.TutorSubjects
                 .AnyAsync(ts => ts.TutorId == tutor.Id && ts.SubjectId == model.SubjectId && ts.Approved);
@@ -206,7 +350,7 @@ namespace StudentPortalSystem.Controllers
                 return View(model);
             }
 
-            // TODO: Handle file uploads here if TutorMaterial contains files
+            // TODO: Add file upload handling if needed
 
             model.UploadDate = DateTime.UtcNow;
             model.TutorId = tutor.Id;

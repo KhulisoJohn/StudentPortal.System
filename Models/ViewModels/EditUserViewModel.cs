@@ -22,7 +22,7 @@ namespace StudentPortalSystem.Models.ViewModels
         // For the dropdown list in Razor view
         public List<UserRole> AvailableRoles { get; set; } = Enum.GetValues(typeof(UserRole)).Cast<UserRole>().ToList();
         public string PhoneNumber { get; internal set; } = string.Empty;
-        public object SelectedRole { get; internal set; }
-        public List<string> AllRoles { get; internal set; } 
+        public object? SelectedRole { get; internal set; }
+        public List<string>? AllRoles { get; internal set; } 
     }
 }

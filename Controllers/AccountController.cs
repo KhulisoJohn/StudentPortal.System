@@ -18,7 +18,6 @@ namespace StudentPortalSystem.Controllers
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly StudentPortalDbContext _context;
 
-        // Use enum values here, not string
         private readonly UserRole[] _allowedRoles = new[] { UserRole.Student, UserRole.Tutor };
 
         public AccountController(
@@ -33,20 +32,24 @@ namespace StudentPortalSystem.Controllers
             _context = context;
         }
 
+        // Ensure required roles exist in DB
         private async Task EnsureRolesExistAsync()
         {
             foreach (var role in _allowedRoles)
             {
-                // role.ToString() to get string name
                 if (!await _roleManager.RoleExistsAsync(role.ToString()))
+                {
                     await _roleManager.CreateAsync(new IdentityRole(role.ToString()));
+                }
             }
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public IActionResult Register() => View();
 
         [HttpPost]
+        [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
@@ -77,43 +80,54 @@ namespace StudentPortalSystem.Controllers
                 PhoneNumber = model.PhoneNumber
             };
 
-            var result = await _userManager.CreateAsync(user, model.Password);
-            if (!result.Succeeded)
+            var createUserResult = await _userManager.CreateAsync(user, model.Password);
+            if (!createUserResult.Succeeded)
             {
-                foreach (var error in result.Errors)
+                foreach (var error in createUserResult.Errors)
                     ModelState.AddModelError(string.Empty, error.Description);
                 return View(model);
             }
 
-            // Convert enum to string here for Identity methods
-            await _userManager.AddToRoleAsync(user, model.Role.ToString());
-
-            if (model.Role == UserRole.Tutor)
+            // Assign user role
+            var addToRoleResult = await _userManager.AddToRoleAsync(user, model.Role.ToString());
+            if (!addToRoleResult.Succeeded)
             {
-                var tutor = new Tutor
-                {
-                    ApplicationUserId = user.Id,
-                    HireDate = DateTime.UtcNow,
-                    IsActive = true
-                };
-                _context.Tutors.Add(tutor);
-                await _context.SaveChangesAsync();
-
-                await _signInManager.SignInAsync(user, isPersistent: false);
-                return RedirectToAction("Index", "Tutor");
-            }
-            else if (model.Role == UserRole.Student)
-            {
-                // No student entity created here yet, but you can add logic later
-
-                await _signInManager.SignInAsync(user, isPersistent: false);
-                return RedirectToAction("Enroll", "Student");
+                // Rollback user creation if role assignment fails
+                await _userManager.DeleteAsync(user);
+                ModelState.AddModelError("", "Failed to assign role. Please try again.");
+                return View(model);
             }
 
-            return RedirectToAction("Index", "Home");
+            // Create related entities based on role
+            switch (model.Role)
+            {
+                case UserRole.Tutor:
+                    var tutor = new Tutor
+                    {
+                        ApplicationUserId = user.Id,
+                        HireDate = DateTime.UtcNow,
+                        IsActive = true
+                    };
+                    _context.Tutors.Add(tutor);
+                    await _context.SaveChangesAsync();
+
+                    await _signInManager.SignInAsync(user, isPersistent: false);
+                    return RedirectToAction("Index", "Tutor");
+
+                case UserRole.Student:
+                    // Optionally create minimal Student entity here to avoid enrollment step later
+                    // Or redirect to enrollment/details page
+                    await _signInManager.SignInAsync(user, isPersistent: false);
+                    return RedirectToAction("Details", "Student");
+
+                default:
+                    // Should never reach here due to earlier validation
+                    return RedirectToAction("Index", "Home");
+            }
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public IActionResult Login(string? returnUrl = null)
         {
             ViewData["ReturnUrl"] = returnUrl;
@@ -121,6 +135,7 @@ namespace StudentPortalSystem.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginViewModel model, string? returnUrl = null)
         {
@@ -151,6 +166,7 @@ namespace StudentPortalSystem.Controllers
                 if (roles.Contains(UserRole.Tutor.ToString()))
                     return RedirectToAction("Index", "Tutor");
 
+                // Default fallback
                 return RedirectToAction("Index", "Home");
             }
 

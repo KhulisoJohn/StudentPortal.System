@@ -9,7 +9,6 @@ var builder = WebApplication.CreateBuilder(args);
 
 Env.Load(Path.Combine(Directory.GetCurrentDirectory(), ".env"));
 
-
 var dbServer = Environment.GetEnvironmentVariable("DB_SERVER");
 var dbPort = Environment.GetEnvironmentVariable("DB_PORT");
 var dbName = Environment.GetEnvironmentVariable("DB_DATABASE");
@@ -27,7 +26,7 @@ if (string.IsNullOrEmpty(dbServer) ||
 
 var connectionString = $"Server={dbServer};Port={dbPort};Database={dbName};User={dbUser};Password={dbPassword};";
 
-
+// Add DB context
 builder.Services.AddDbContext<StudentPortalDbContext>(options =>
     options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
 
@@ -36,26 +35,34 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
     .AddEntityFrameworkStores<StudentPortalDbContext>()
     .AddDefaultTokenProviders();
 
+// Identity Cookie Settings (AccessDeniedPath FIX)
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.LoginPath = "/Account/Login";            
+    options.AccessDeniedPath = "/Account/AccessDenied";   
+});
 
+// MVC Support
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 
-
+// Error handling
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
     app.UseHsts();
 }
 
+// Middleware pipeline
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
 app.UseRouting();
+
 app.UseAuthentication(); 
 app.UseAuthorization();
 
-// 🔹 Routing
+// Default route
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");

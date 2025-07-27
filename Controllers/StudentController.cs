@@ -24,104 +24,7 @@ namespace StudentPortalSystem.Controllers
             _userManager = userManager;
         }
 
-        // GET: Student/Create
-        [HttpGet]
-        public async Task<IActionResult> Create()
-        {
-            var user = await _userManager.GetUserAsync(User);
-            var existingStudent = await _context.Students
-                .AsNoTracking()
-                .FirstOrDefaultAsync(s => s.ApplicationUserId == user.Id);
-
-            if (existingStudent != null)
-                return RedirectToAction(nameof(Details));
-
-            ViewBag.AllSubjects = await _context.Subjects.ToListAsync();
-
-            var model = new Student
-            {
-                EnrollmentDate = DateTime.UtcNow,
-                Status = UserStatus.Active
-            };
-
-            return View(model);
-        }
-
-        // POST: Student/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Student model, int[] selectedSubjects)
-        {
-            var user = await _userManager.GetUserAsync(User);
-            if (user == null)
-                return RedirectToAction("Login", "Account");
-
-            var existingStudent = await _context.Students
-                .AsNoTracking()
-                .FirstOrDefaultAsync(s => s.ApplicationUserId == user.Id);
-
-            if (existingStudent != null)
-                return RedirectToAction(nameof(Details));
-
-            if (!ModelState.IsValid)
-            {
-                ViewBag.AllSubjects = await _context.Subjects.ToListAsync();
-                return View(model);
-            }
-
-            if (model.Grade >= GradeRange.Grade10 && model.Grade <= GradeRange.Grade12)
-            {
-                if (selectedSubjects == null || selectedSubjects.Length != 4)
-                {
-                    ModelState.AddModelError("", "Students in grades 10 to 12 must select exactly 4 subjects.");
-                    ViewBag.AllSubjects = await _context.Subjects.ToListAsync();
-                    return View(model);
-                }
-            }
-            else if (model.Grade >= GradeRange.Grade4 && model.Grade <= GradeRange.Grade9)
-            {
-                selectedSubjects = await _context.Subjects.Select(s => s.Id).ToArrayAsync();
-            }
-            else
-            {
-                ModelState.AddModelError("Grade", "Only grades 4 to 12 are supported.");
-                ViewBag.AllSubjects = await _context.Subjects.ToListAsync();
-                return View(model);
-            }
-
-            var age = DateTime.Today.Year - model.DateOfBirth.Year;
-            if (model.DateOfBirth.Date > DateTime.Today.AddYears(-age)) age--;
-
-            model.ApplicationUserId = user.Id;
-            model.EnrollmentDate = DateTime.UtcNow;
-            model.Status = UserStatus.Active;
-            model.CanJoinSubjectChannels = age >= 12;
-
-            try
-            {
-                _context.Students.Add(model);
-                await _context.SaveChangesAsync();
-
-                var studentSubjects = selectedSubjects.Select(subjectId => new StudentSubject
-                {
-                    StudentId = model.Id,
-                    SubjectId = subjectId
-                });
-
-                _context.StudentSubjects.AddRange(studentSubjects);
-                await _context.SaveChangesAsync();
-            }
-            catch (Exception ex)
-            {
-                ModelState.AddModelError("", "Unexpected error: " + ex.Message);
-                ViewBag.AllSubjects = await _context.Subjects.ToListAsync();
-                return View(model);
-            }
-
-            return RedirectToAction(nameof(Details));
-        }
-
-        // GET: Student/Details
+        // GET: Student/Details (read & create if missing)
         [HttpGet]
         public async Task<IActionResult> Details()
         {
@@ -133,12 +36,28 @@ namespace StudentPortalSystem.Controllers
                 .FirstOrDefaultAsync(s => s.ApplicationUserId == user.Id);
 
             if (student == null)
-                return RedirectToAction(nameof(Create));
+            {
+                // Auto-create new Student entity with minimal data
+                student = new Student
+                {
+                    ApplicationUserId = user.Id,
+                    EnrollmentDate = DateTime.UtcNow,
+                    Status = UserStatus.Active,
+                    DateOfBirth = DateTime.Today.AddYears(-15), // default DOB, adjust as needed
+                    Grade = GradeRange.Grade10, // default grade, adjust as needed
+                    CanJoinSubjectChannels = true // default true, adjust based on age if needed
+                };
+
+                _context.Students.Add(student);
+                await _context.SaveChangesAsync();
+
+                // Optionally assign default subjects here if needed
+            }
 
             return View(student);
         }
 
-        // GET: Student/Edit
+        // GET: Student/Edit (show form with subjects)
         [HttpGet]
         public async Task<IActionResult> Edit()
         {
@@ -148,7 +67,7 @@ namespace StudentPortalSystem.Controllers
                 .FirstOrDefaultAsync(s => s.ApplicationUserId == user.Id);
 
             if (student == null)
-                return RedirectToAction(nameof(Create));
+                return RedirectToAction(nameof(Details)); // will create student
 
             ViewBag.AllSubjects = await _context.Subjects.ToListAsync();
             ViewBag.SelectedSubjects = student.StudentSubjects.Select(ss => ss.SubjectId).ToArray();
@@ -176,6 +95,7 @@ namespace StudentPortalSystem.Controllers
                 return View(model);
             }
 
+            // Validate subjects count based on grade
             if (model.Grade >= GradeRange.Grade10 && model.Grade <= GradeRange.Grade12)
             {
                 if (selectedSubjects.Length != 4)
@@ -190,14 +110,23 @@ namespace StudentPortalSystem.Controllers
             {
                 selectedSubjects = await _context.Subjects.Select(s => s.Id).ToArrayAsync();
             }
+            else
+            {
+                ModelState.AddModelError("Grade", "Only grades 4 to 12 are supported.");
+                ViewBag.AllSubjects = await _context.Subjects.ToListAsync();
+                ViewBag.SelectedSubjects = selectedSubjects;
+                return View(model);
+            }
 
             var age = DateTime.Today.Year - model.DateOfBirth.Year;
             if (model.DateOfBirth.Date > DateTime.Today.AddYears(-age)) age--;
 
+            // Update student properties
             student.DateOfBirth = model.DateOfBirth;
             student.Grade = model.Grade;
             student.CanJoinSubjectChannels = age >= 12;
 
+            // Update subjects
             _context.StudentSubjects.RemoveRange(student.StudentSubjects);
 
             var newSubjects = selectedSubjects.Select(subjectId => new StudentSubject
@@ -233,7 +162,7 @@ namespace StudentPortalSystem.Controllers
                 .FirstOrDefaultAsync(s => s.ApplicationUserId == user.Id);
 
             if (student == null)
-                return RedirectToAction(nameof(Create));
+                return RedirectToAction(nameof(Details));
 
             return View(student);
         }
