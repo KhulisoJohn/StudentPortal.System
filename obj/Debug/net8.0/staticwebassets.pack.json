@@ -1,8 +1,8 @@
 {
   "Files": [
     {
-      "Id": "/home/khulysojohn/Development/StudentPortal.System/obj/Debug/net8.0/scopedcss/projectbundle/StudentPortalSystem.bundle.scp.css",
-      "PackagePath": "staticwebassets/StudentPortalSystem.bundle.scp.css"
+      "Id": "/home/khulysojohn/Development/StudentPortal.System/obj/Debug/net8.0/scopedcss/projectbundle/StudentPortal.System.bundle.scp.css",
+      "PackagePath": "staticwebassets/StudentPortal.System.bundle.scp.css"
     },
     {
       "Id": "/home/khulysojohn/Development/StudentPortal.System/wwwroot/css/site.css",
@@ -249,20 +249,20 @@
       "PackagePath": "staticwebassets/lib/jquery/dist/jquery.min.map"
     },
     {
-      "Id": "obj/Debug/net8.0/staticwebassets/msbuild.StudentPortalSystem.Microsoft.AspNetCore.StaticWebAssets.props",
+      "Id": "obj/Debug/net8.0/staticwebassets/msbuild.StudentPortal.System.Microsoft.AspNetCore.StaticWebAssets.props",
       "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
     },
     {
-      "Id": "obj/Debug/net8.0/staticwebassets/msbuild.build.StudentPortalSystem.props",
-      "PackagePath": "build\\StudentPortalSystem.props"
+      "Id": "obj/Debug/net8.0/staticwebassets/msbuild.build.StudentPortal.System.props",
+      "PackagePath": "build\\StudentPortal.System.props"
     },
     {
-      "Id": "obj/Debug/net8.0/staticwebassets/msbuild.buildMultiTargeting.StudentPortalSystem.props",
-      "PackagePath": "buildMultiTargeting\\StudentPortalSystem.props"
+      "Id": "obj/Debug/net8.0/staticwebassets/msbuild.buildMultiTargeting.StudentPortal.System.props",
+      "PackagePath": "buildMultiTargeting\\StudentPortal.System.props"
     },
     {
-      "Id": "obj/Debug/net8.0/staticwebassets/msbuild.buildTransitive.StudentPortalSystem.props",
-      "PackagePath": "buildTransitive\\StudentPortalSystem.props"
+      "Id": "obj/Debug/net8.0/staticwebassets/msbuild.buildTransitive.StudentPortal.System.props",
+      "PackagePath": "buildTransitive\\StudentPortal.System.props"
     }
   ],
   "ElementsToRemove": []

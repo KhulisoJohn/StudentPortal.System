@@ -8539,9 +8539,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/khulysojohn/Development/StudentPortal.System/StudentPortalSystem.csproj",
-      "projectName": "StudentPortalSystem",
-      "projectPath": "/home/khulysojohn/Development/StudentPortal.System/StudentPortalSystem.csproj",
+      "projectUniqueName": "/home/khulysojohn/Development/StudentPortal.System/StudentPortal.System.csproj",
+      "projectName": "StudentPortal.System",
+      "projectPath": "/home/khulysojohn/Development/StudentPortal.System/StudentPortal.System.csproj",
       "packagesPath": "/home/khulysojohn/.nuget/packages/",
       "outputPath": "/home/khulysojohn/Development/StudentPortal.System/obj/",
       "projectStyle": "PackageReference",
@@ -8619,7 +8619,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/8.0.412/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/8.0.413/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
