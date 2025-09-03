@@ -2,7 +2,7 @@
   "Files": [
     {
       "Id": "/home/khulysojohn/Development/StudentPortal.System/obj/Debug/net8.0/scopedcss/projectbundle/StudentPortal.System.bundle.scp.css",
-      "PackagePath": "staticwebassets/StudentPortal.System.bundle.scp.css"
+      "PackagePath": "staticwebassets/StudentPortal.System.y525biki0q.bundle.scp.css"
     },
     {
       "Id": "/home/khulysojohn/Development/StudentPortal.System/wwwroot/css/site.css",
@@ -247,6 +247,10 @@
     {
       "Id": "/home/khulysojohn/Development/StudentPortal.System/wwwroot/lib/jquery/dist/jquery.min.map",
       "PackagePath": "staticwebassets/lib/jquery/dist/jquery.min.map"
+    },
+    {
+      "Id": "obj/Debug/net8.0/staticwebassets/msbuild.StudentPortal.System.Microsoft.AspNetCore.StaticWebAssetEndpoints.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssetEndpoints.props"
     },
     {
       "Id": "obj/Debug/net8.0/staticwebassets/msbuild.StudentPortal.System.Microsoft.AspNetCore.StaticWebAssets.props",

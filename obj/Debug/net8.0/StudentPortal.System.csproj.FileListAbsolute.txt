@@ -149,3 +149,6 @@
 /home/khulysojohn/Development/StudentPortal.System/obj/Debug/net8.0/StudentPortal.System.pdb
 /home/khulysojohn/Development/StudentPortal.System/obj/Debug/net8.0/StudentPortal.System.genruntimeconfig.cache
 /home/khulysojohn/Development/StudentPortal.System/obj/Debug/net8.0/ref/StudentPortal.System.dll
+/home/khulysojohn/Development/StudentPortal.System/bin/Debug/net8.0/StudentPortal.System.staticwebassets.endpoints.json
+/home/khulysojohn/Development/StudentPortal.System/obj/Debug/net8.0/staticwebassets.build.endpoints.json
+/home/khulysojohn/Development/StudentPortal.System/obj/Debug/net8.0/staticwebassets/msbuild.StudentPortal.System.Microsoft.AspNetCore.StaticWebAssetEndpoints.props
