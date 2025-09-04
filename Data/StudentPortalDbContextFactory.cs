@@ -14,7 +14,7 @@ namespace StudentPortalSystem.Data
             // 🔹 Read variables
             var dbServer = Environment.GetEnvironmentVariable("DB_SERVER");
             var dbPort = Environment.GetEnvironmentVariable("DB_PORT");
-            var dbName = Environment.GetEnvironmentVariable("DB_DATABASE");
+            var dbName = Environment.GetEnvironmentVariable("DB_NAME");
             var dbUser = Environment.GetEnvironmentVariable("DB_USER");
             var dbPassword = Environment.GetEnvironmentVariable("DB_PASSWORD");
 
@@ -27,11 +27,11 @@ namespace StudentPortalSystem.Data
                 throw new InvalidOperationException("Missing one or more database environment variables.");
             }
 
-            // 🔹 Build connection string
-            var connectionString = $"Server={dbServer};Port={dbPort};Database={dbName};User={dbUser};Password={dbPassword};";
+            // 🔹 Build PostgreSQL connection string
+            var connectionString = $"Host={dbServer};Port={dbPort};Database={dbName};Username={dbUser};Password={dbPassword}";
 
             var optionsBuilder = new DbContextOptionsBuilder<StudentPortalDbContext>();
-            optionsBuilder.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
+            optionsBuilder.UseNpgsql(connectionString); // Use PostgreSQL
 
             return new StudentPortalDbContext(optionsBuilder.Options);
         }

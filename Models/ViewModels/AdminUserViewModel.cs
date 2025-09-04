@@ -1,5 +1,4 @@
 using StudentPortalSystem.Enums;
-using StudentPortalSystem.Migrations;
 using System.ComponentModel.DataAnnotations;
 namespace StudentPortalSystem.Models.ViewModels
 {

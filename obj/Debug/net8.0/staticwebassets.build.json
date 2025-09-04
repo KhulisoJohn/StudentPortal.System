@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "WYxiKWi5ZItxOQq7j7eIOJrxbBs4YQ86baWHllRjzdg=",
+  "Hash": "LREuSObcSHZePbRWXfClsWHRErgU/38T+FezoBYVHN8=",
   "Source": "StudentPortal.System",
   "BasePath": "_content/StudentPortal.System",
   "Mode": "Default",
@@ -31,8 +31,8 @@
       "RelatedAsset": "",
       "AssetTraitName": "ScopedCss",
       "AssetTraitValue": "ApplicationBundle",
-      "Fingerprint": "y525biki0q",
-      "Integrity": "yjINreDlCTS/T5QMjtCZ0yH+xq2FrqrDCvOViyM4JY4=",
+      "Fingerprint": "zd7o8lr380",
+      "Integrity": "mdh4cKsIy67S65hI4omXe5+RGc9A+VYf1KemUgWoIvM=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "/home/khulysojohn/Development/StudentPortal.System/obj/Debug/net8.0/scopedcss/bundle/StudentPortal.System.styles.css"
@@ -52,8 +52,8 @@
       "RelatedAsset": "",
       "AssetTraitName": "ScopedCss",
       "AssetTraitValue": "ProjectBundle",
-      "Fingerprint": "y525biki0q",
-      "Integrity": "yjINreDlCTS/T5QMjtCZ0yH+xq2FrqrDCvOViyM4JY4=",
+      "Fingerprint": "zd7o8lr380",
+      "Integrity": "mdh4cKsIy67S65hI4omXe5+RGc9A+VYf1KemUgWoIvM=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "/home/khulysojohn/Development/StudentPortal.System/obj/Debug/net8.0/scopedcss/projectbundle/StudentPortal.System.bundle.scp.css"
@@ -6362,11 +6362,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"yjINreDlCTS/T5QMjtCZ0yH+xq2FrqrDCvOViyM4JY4=\""
+          "Value": "\"mdh4cKsIy67S65hI4omXe5+RGc9A+VYf1KemUgWoIvM=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Fri, 22 Aug 2025 10:35:56 GMT"
+          "Value": "Thu, 04 Sep 2025 10:46:55 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -6376,7 +6376,7 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-yjINreDlCTS/T5QMjtCZ0yH+xq2FrqrDCvOViyM4JY4="
+          "Value": "sha256-mdh4cKsIy67S65hI4omXe5+RGc9A+VYf1KemUgWoIvM="
         }
       ]
     },
@@ -6399,11 +6399,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"yjINreDlCTS/T5QMjtCZ0yH+xq2FrqrDCvOViyM4JY4=\""
+          "Value": "\"mdh4cKsIy67S65hI4omXe5+RGc9A+VYf1KemUgWoIvM=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Fri, 22 Aug 2025 10:35:56 GMT"
+          "Value": "Thu, 04 Sep 2025 10:46:55 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -6413,12 +6413,12 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-yjINreDlCTS/T5QMjtCZ0yH+xq2FrqrDCvOViyM4JY4="
+          "Value": "sha256-mdh4cKsIy67S65hI4omXe5+RGc9A+VYf1KemUgWoIvM="
         }
       ]
     },
     {
-      "Route": "StudentPortal.System.y525biki0q.bundle.scp.css",
+      "Route": "StudentPortal.System.zd7o8lr380.bundle.scp.css",
       "AssetFile": "/home/khulysojohn/Development/StudentPortal.System/obj/Debug/net8.0/scopedcss/projectbundle/StudentPortal.System.bundle.scp.css",
       "Selectors": [],
       "ResponseHeaders": [
@@ -6436,11 +6436,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"yjINreDlCTS/T5QMjtCZ0yH+xq2FrqrDCvOViyM4JY4=\""
+          "Value": "\"mdh4cKsIy67S65hI4omXe5+RGc9A+VYf1KemUgWoIvM=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Fri, 22 Aug 2025 10:35:56 GMT"
+          "Value": "Thu, 04 Sep 2025 10:46:55 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -6450,7 +6450,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "y525biki0q"
+          "Value": "zd7o8lr380"
         },
         {
           "Name": "label",
@@ -6458,12 +6458,12 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-yjINreDlCTS/T5QMjtCZ0yH+xq2FrqrDCvOViyM4JY4="
+          "Value": "sha256-mdh4cKsIy67S65hI4omXe5+RGc9A+VYf1KemUgWoIvM="
         }
       ]
     },
     {
-      "Route": "StudentPortal.System.y525biki0q.styles.css",
+      "Route": "StudentPortal.System.zd7o8lr380.styles.css",
       "AssetFile": "/home/khulysojohn/Development/StudentPortal.System/obj/Debug/net8.0/scopedcss/bundle/StudentPortal.System.styles.css",
       "Selectors": [],
       "ResponseHeaders": [
@@ -6481,11 +6481,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"yjINreDlCTS/T5QMjtCZ0yH+xq2FrqrDCvOViyM4JY4=\""
+          "Value": "\"mdh4cKsIy67S65hI4omXe5+RGc9A+VYf1KemUgWoIvM=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Fri, 22 Aug 2025 10:35:56 GMT"
+          "Value": "Thu, 04 Sep 2025 10:46:55 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -6495,7 +6495,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "y525biki0q"
+          "Value": "zd7o8lr380"
         },
         {
           "Name": "label",
@@ -6503,7 +6503,7 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-yjINreDlCTS/T5QMjtCZ0yH+xq2FrqrDCvOViyM4JY4="
+          "Value": "sha256-mdh4cKsIy67S65hI4omXe5+RGc9A+VYf1KemUgWoIvM="
         }
       ]
     }

@@ -6,13 +6,13 @@ using DotNetEnv;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
+// Load environment variables from .env (for local development)
 Env.Load(Path.Combine(Directory.GetCurrentDirectory(), ".env"));
 
-
+// Get DB variables
 var dbServer = Environment.GetEnvironmentVariable("DB_SERVER");
 var dbPort = Environment.GetEnvironmentVariable("DB_PORT");
-var dbName = Environment.GetEnvironmentVariable("DB_DATABASE");
+var dbName = Environment.GetEnvironmentVariable("DB_NAME");
 var dbUser = Environment.GetEnvironmentVariable("DB_USER");
 var dbPassword = Environment.GetEnvironmentVariable("DB_PASSWORD");
 
@@ -25,22 +25,19 @@ if (string.IsNullOrEmpty(dbServer) ||
     throw new InvalidOperationException("One or more required environment variables are missing.");
 }
 
-var connectionString = $"Server={dbServer};Port={dbPort};Database={dbName};User={dbUser};Password={dbPassword};";
-
+// PostgreSQL connection string
+var connectionString = $"Host={dbServer};Port={dbPort};Database={dbName};Username={dbUser};Password={dbPassword}";
 
 builder.Services.AddDbContext<StudentPortalDbContext>(options =>
-    options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
-
+    options.UseNpgsql(connectionString));
 
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
     .AddEntityFrameworkStores<StudentPortalDbContext>()
     .AddDefaultTokenProviders();
 
-
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
-
 
 if (!app.Environment.IsDevelopment())
 {

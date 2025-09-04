@@ -25,22 +25,22 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"yjINreDlCTS/T5QMjtCZ0yH+xq2FrqrDCvOViyM4JY4=\""
+          "Value": "\"mdh4cKsIy67S65hI4omXe5+RGc9A+VYf1KemUgWoIvM=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Fri, 22 Aug 2025 10:35:56 GMT"
+          "Value": "Thu, 04 Sep 2025 10:46:55 GMT"
         }
       ],
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-yjINreDlCTS/T5QMjtCZ0yH+xq2FrqrDCvOViyM4JY4="
+          "Value": "sha256-mdh4cKsIy67S65hI4omXe5+RGc9A+VYf1KemUgWoIvM="
         }
       ]
     },
     {
-      "Route": "StudentPortal.System.y525biki0q.styles.css",
+      "Route": "StudentPortal.System.zd7o8lr380.styles.css",
       "AssetFile": "StudentPortal.System.styles.css",
       "Selectors": [],
       "ResponseHeaders": [
@@ -62,21 +62,21 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"yjINreDlCTS/T5QMjtCZ0yH+xq2FrqrDCvOViyM4JY4=\""
+          "Value": "\"mdh4cKsIy67S65hI4omXe5+RGc9A+VYf1KemUgWoIvM=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Fri, 22 Aug 2025 10:35:56 GMT"
+          "Value": "Thu, 04 Sep 2025 10:46:55 GMT"
         }
       ],
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "y525biki0q"
+          "Value": "zd7o8lr380"
         },
         {
           "Name": "integrity",
-          "Value": "sha256-yjINreDlCTS/T5QMjtCZ0yH+xq2FrqrDCvOViyM4JY4="
+          "Value": "sha256-mdh4cKsIy67S65hI4omXe5+RGc9A+VYf1KemUgWoIvM="
         },
         {
           "Name": "label",
