@@ -12,8 +12,8 @@ using StudentPortalSystem.Data;
 namespace StudentPortal.System.Migrations
 {
     [DbContext(typeof(StudentPortalDbContext))]
-    [Migration("20250904104723_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20250916105846_CreateUsersTable")]
+    partial class CreateUsersTable
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

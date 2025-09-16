@@ -152,3 +152,15 @@
 /home/khulysojohn/Development/StudentPortal.System/obj/Debug/net8.0/StudentPortal.System.pdb
 /home/khulysojohn/Development/StudentPortal.System/obj/Debug/net8.0/StudentPortal.System.genruntimeconfig.cache
 /home/khulysojohn/Development/StudentPortal.System/obj/Debug/net8.0/ref/StudentPortal.System.dll
+/home/khulysojohn/Development/StudentPortal.System/bin/Debug/net8.0/Microsoft.IO.RecyclableMemoryStream.dll
+/home/khulysojohn/Development/StudentPortal.System/bin/Debug/net8.0/MimeMapping.dll
+/home/khulysojohn/Development/StudentPortal.System/bin/Debug/net8.0/Newtonsoft.Json.dll
+/home/khulysojohn/Development/StudentPortal.System/bin/Debug/net8.0/Supabase.dll
+/home/khulysojohn/Development/StudentPortal.System/bin/Debug/net8.0/Supabase.Core.dll
+/home/khulysojohn/Development/StudentPortal.System/bin/Debug/net8.0/Supabase.Functions.dll
+/home/khulysojohn/Development/StudentPortal.System/bin/Debug/net8.0/Supabase.Gotrue.dll
+/home/khulysojohn/Development/StudentPortal.System/bin/Debug/net8.0/Supabase.Postgrest.dll
+/home/khulysojohn/Development/StudentPortal.System/bin/Debug/net8.0/Supabase.Realtime.dll
+/home/khulysojohn/Development/StudentPortal.System/bin/Debug/net8.0/Supabase.Storage.dll
+/home/khulysojohn/Development/StudentPortal.System/bin/Debug/net8.0/System.Reactive.dll
+/home/khulysojohn/Development/StudentPortal.System/bin/Debug/net8.0/Websocket.Client.dll
